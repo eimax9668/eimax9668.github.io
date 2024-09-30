@@ -2,14 +2,14 @@ h1,h2,h3,h4,h5,h6,p{
     color: #3e3e3e;
     font-family: "Inter","IBM Plex Sans JP";
 }
-
+/*usu #6a8c8f kri #425759 */
 .contents{
     width: 70%;
     margin: auto;
     display: flex;
     gap: 40px;
     transition: 0.3s;
-    @media (max-width: 900px) {width: 90%; transition: 0.3s;}
+    @media (max-width: 900px) {width: 90%; transition: 0.3s; display: block;}
 }
 .box{
     width: 70%;
@@ -24,29 +24,29 @@ h1,h2,h3,h4,h5,h6,p{
     margin-bottom: 40px;
 }
 
-.box,#head{
-    @media (max-width: 900px) {width: 90%; transition: 0.3s;}
-}
+.box,#head{    @media (max-width: 900px) {width: 90%; transition: 0.3s;}}
 
 .box > h1 {
     margin: 0;
     font-weight: 800;
-    color: rgb(80, 106, 108);
+    color: #506a6c;
 }
 
 #box1{
-    padding: 0em 0em 0em 1.5em;
     text-align: left;
     width: 60%;
     height: 300px;
+    @media (max-width: 900px) {width: 100%;}
 }
 #box2{
-    padding: 0em 0em 0em 1.5em;
     text-align: left;
     width: 40%;
     height: 300px;
+    @media (max-width: 900px) {width: 100%;}
 }
 
-#box1 > p{
-    width: 95%;
+#box1 > p,#box2 > p{
+    width: 95%; padding-left: 20px;
+    @media (max-width: 900px) {width: 90%;}
 }
+#box1 > h2,#box2 > h2{padding-left: 20px;}
