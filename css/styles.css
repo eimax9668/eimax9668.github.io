@@ -1,18 +1,37 @@
-*{
-    color: #3e3e3e;
-    font-family: "Inter","IBM Plex Sans JP";
+html{    background:linear-gradient(0.25turn,#6a8c8f19 , #ffffff,#6a8c8f19);
 }
-a {text-decoration: none; color: #425759;}
+* {
+    color: #3e3e3e;
+    font-family: "Inter", "IBM Plex Sans JP";
+}
+
+a {
+    text-decoration: none;
+    color: #425759;
+    transition: 0.2s;
+
+}
+a:hover{
+    color: #6a8c8f; 
+    transition: 0.2s;
+}
+
 /*usu #6a8c8f kri #425759 */
-.contents{
+.contents {
     width: 70%;
     margin: auto;
     display: flex;
     gap: 40px;
     transition: 0.3s;
-    @media (max-width: 900px) {width: 90%; transition: 0.3s; display: block;}
+
+    @media (max-width: 900px) {
+        width: 90%;
+        transition: 0.3s;
+        display: block;
+    }
 }
-.box{
+
+.box {
     width: 70%;
     height: 60px;
     border-radius: 10px;
@@ -25,31 +44,100 @@ a {text-decoration: none; color: #425759;}
     margin-bottom: 40px;
 }
 
-.box,#head{    @media (max-width: 900px) {width: 90%; transition: 0.3s;}}
+.box,
+#head {
+    @media (max-width: 900px) {
+        width: 90%;
+        transition: 0.3s;
+    }
+}
 
-#head > a {
+#head>a {
     margin: 0;
     font-weight: 800;
     color: #506a6c;
-    font-size:35px;
+    font-size: 35px;
 }
 
-#box1{
+#box1 {
     text-align: left;
     width: 60%;
     height: 300px;
-    @media (max-width: 900px) {width: 100%;}
+    background:linear-gradient(180deg,#ffffff 40%, #6a8c8f53);
+    @media (max-width: 900px) {
+        width: 100%;
+    }
 }
-#box2{
+
+#box2 {
     text-align: left;
     width: 40%;
     height: 300px;
-    @media (max-width: 900px) {width: 100%;}
+
+    @media (max-width: 900px) {
+        width: 100%;
+    }
 }
 
-#box1 > p,#box2 > p,a{
-    width: 95%; padding-left: 20px;
-    @media (max-width: 900px) {width: 90%;}
+#box1>p,
+#box2>p,#box2>a{
+    width: 95%;
+    padding-left: 20px;
+    @media (max-width: 900px) {
+        width: 90%;
+    }
 }
-#box1 > h2,#box2 > h2{padding-left: 20px;}
-#box2 > a{font-weight: bold;}
+
+#box1>h2,
+#box2>h2 {
+    padding-left: 20px;
+}
+
+#box2>a {
+    font-weight: bold;
+    margin-bottom: 20px;
+    display: block;
+}
+
+#box3 {
+    width: 80%;
+    height: 300px;
+
+    @media (max-width: 900px) {
+        width: 100%;
+    }
+}
+
+#box3 h2 {
+    text-align: left;
+    padding-left: 20px;
+}
+
+#box3 p {
+    text-align: left;
+    padding-left: 20px;
+    width: 95%;
+
+    @media (max-width: 900px) {
+        width: 93%;
+    }
+}
+
+#box4 {
+    width: 100%;
+
+    width: 20%;
+    height: 300px;
+    position: relative;
+    @media (max-width: 900px) {
+        width: 100%;
+    }
+}
+
+#b4-nkm {
+    display: grid;
+}
+
+#b4-nkm > a{
+    margin-bottom: 10px;
+}
