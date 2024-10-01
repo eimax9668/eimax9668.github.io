@@ -37,7 +37,6 @@ a:hover {
 
 .box {
     width: 70%;
-    height: 60px;
     border-radius: 10px;
     box-shadow: 0px 3px 12px 0px rgba(0, 0, 0, 0.35);
     background-color: #fdfdfd;
@@ -51,6 +50,11 @@ a:hover {
 .box:hover {
     box-shadow: 0px 6px 15px 0px rgba(96, 120, 122, 0.83);
     transition: 0.3s;
+}
+
+header {
+    width: 70%;
+    height: 60px;
 }
 
 .box,
@@ -128,14 +132,19 @@ a:hover {
     padding-left: 20px;
 }
 
-#box3 p {
+#box3 p,
+#box3 h3 {
     text-align: left;
     padding-left: 20px;
-    width: 95%;
+    width: 94%;
 
     @media (max-width: 900px) {
         width: 93%;
     }
+}
+
+#box3 h3 {
+    color: #5e5e5e
 }
 
 #box4 {
@@ -143,6 +152,7 @@ a:hover {
     width: 20%;
     height: 300px;
     position: relative;
+    overflow: scroll;
 
     @media (max-width: 900px) {
         width: 100%;
@@ -154,7 +164,16 @@ a:hover {
 }
 
 #b4-nkm>a {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     font-family: "IBM Plex Mono";
     font-weight: bold;
+}
+
+.archives{
+    display: grid;
+}
+
+.archives > a{
+    margin-bottom: 15px;
+    font-family: "IBM Plex Mono";
 }
