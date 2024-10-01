@@ -109,11 +109,14 @@ a:hover {
 #box1>p,
 #box2>p,
 #box2>a {
-    width: 95%;
+    width: 93%;
     padding-left: 20px;
 
-    @media (max-width: 900px) {
+    @media (max-width: 1030px) {
         width: 90%;
+    }
+    @media (max-width: 900px) {
+        width: 88%;
     }
 }
 
