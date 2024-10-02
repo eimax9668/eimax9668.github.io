@@ -42,13 +42,15 @@ fetchLatestDate()
     const latestDate = result;
     console.log('変数に代入された最新の日付:', latestDate);
     show(`blog/${latestDate}.txt`);
+
+    
     const urlParams = new URLSearchParams(window.location.search);
     // クエリが存在する場合のみ処理を実行
     if (urlParams.toString() !== '') {
       // ここに、クエリを取得して処理するコードを書く
       console.log('Blogクエリが存在します');
       const BlogNumber = urlParams.get('blog');
-      show(`blog/${BlogNumber}.txt`)
+      show(`blog/${BlogNumber}.txt`);
     }
   });
 
@@ -57,20 +59,18 @@ function show(url) {
     .then(response => {
       if (!response.ok) {
         if (response.status === 404) {
-          document.getElementById('blog').innerHTML = "<h1>エラー</h1>";
+          console.error('エラー', response.status);
+          return '<h1>404</h1>';
+          return false;
         } else {
-          console.error('他のエラーが発生しました:', response.status);
-          document.getElementById('blog').innerHTML = "<h1>エラー</h1>";
+          console.error('エラー:', response.status);
         }
-        return;
+        return 'Error';
+        return false;
       }
-
       return response.text();
     })
-    .then(data => {
-      if (response.status === 404) {
-        document.getElementById('blog').innerHTML = "<h1>エラー</h1>";
-      } 
+    .then(data => { 
       document.getElementById('blog').innerHTML = data;
     })
     .catch(error => {
