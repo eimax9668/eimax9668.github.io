@@ -1,3 +1,5 @@
+var IsError = 0;
+
 async function fetchLatestDate() {
   try {
     const response = await fetch('blog/archive.txt');
@@ -43,7 +45,7 @@ fetchLatestDate()
     console.log('変数に代入された最新の日付:', latestDate);
     show(`blog/${latestDate}.txt`);
 
-    
+
     const urlParams = new URLSearchParams(window.location.search);
     // クエリが存在する場合のみ処理を実行
     if (urlParams.toString() !== '') {
@@ -55,24 +57,27 @@ fetchLatestDate()
   });
 
 function show(url) {
+  IsError = 0;
   fetch(`${url}`)
     .then(response => {
       if (!response.ok) {
         if (response.status === 404) {
           console.error('エラー', response.status);
-          return '<h1>404</h1>';
-          return false;
+          IsError = 1;
         } else {
           console.error('エラー:', response.status);
         }
-        return 'Error';
-        return false;
+        IsError = 1;
       }
       return response.text();
     })
-    .then(data => { 
-      document.getElementById('blog').innerHTML = data;
-    })
+    .then(data => {
+          document.getElementById('blog').innerHTML = data;
+          if (IsError == 1){
+            document.getElementById('blog').innerHTML = "<h1>エラー</h1>";
+          }
+        }
+    )
     .catch(error => {
       console.error('エラーが発生しました:', error);
     });
