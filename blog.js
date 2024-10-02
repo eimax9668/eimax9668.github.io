@@ -51,11 +51,29 @@ async function fetchLatestDate() {
         show(`blog/${BlogNumber}.txt`)
       }
     });
-    
-function show(url){
-    fetch(`${url}`)
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('blog').innerHTML = data;
-    });
+
+    function show(url){
+fetch(`${url}`)
+  .then(response => {
+    if (!response.ok) {
+      console.error('データの取得に失敗しました。');
+      if (response.status === 404) {
+        console.error('ページが見つかりません: 404 Not Found');
+        document.getElementById('blog').innerHTML = "<h1>エラー</h1>";
+      } else {
+        console.error('他のエラーが発生しました:', response.status);
+        document.getElementById('blog').innerHTML = "<h1>エラー</h1>";
+      }
+      return;
+    }
+
+    return response.text();
+  })
+  .then(data => {
+    // データの処理
+    document.getElementById('blog').innerHTML = data;
+  })
+  .catch(error => {
+    console.error('エラーが発生しました:', error);
+  });
 }
