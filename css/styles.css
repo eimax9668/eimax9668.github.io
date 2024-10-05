@@ -1,5 +1,5 @@
 html {
-    background: linear-gradient(#6a8c8f27, #6a8c8f37);
+    background: #6a8c8f1e;
     background-attachment: fixed;
 }
 
@@ -12,7 +12,6 @@ a {
     text-decoration: none;
     color: #3b6a6e;
     transition: 0.2s;
-
 }
 
 a:hover {
@@ -41,10 +40,10 @@ a:hover {
 }
 
 .box {
+    border: 1.5px solid #3b6a6e;
     width: 70%;
     border-radius: 10px;
-    box-shadow: 0px 3px 12px 0px rgba(0, 0, 0, 0.35);
-    background-color: #fdfdfd;
+    background-color: #ffffff;
     text-align: center;
     padding: 1em 0em 0em 0em;
     margin: auto;
@@ -52,34 +51,43 @@ a:hover {
     transition: 0.3s;
 }
 
-.box:hover {
-    box-shadow: 0px 6px 15px 0px rgba(96, 120, 122, 0.83);
-    transition: 0.3s;
+#head {
+    width: 69.8%;
+    height: 70px;
 }
 
 #head {
-    width: 70%;
-    height: 60px;
+    border-radius: 10px 10px 0px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0em 0em 0em 0em;
+    margin-bottom: 5px;
+    margin-top: 30px;
 
-}
-
-
-#head {
     @media (max-width: 1103px) {
-        width: 95%;
+        width: 94.7%;
         transition: 0.3s;
     }
-        @media (max-width: 900px) {
-        width: 90%;
+
+    @media (max-width: 900px) {
+        width: 89.5%;
         transition: 0.3s;
     }
 }
 
-#head>a {
-    margin: 0;
+#home {
     font-weight: 800;
-    color: #506a6c;
+    color: #3b6a6e;
     font-size: 35px;
+}
+
+.headlink {
+    font-weight: 600;
+    font-size: 20px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #box1 {
@@ -98,16 +106,20 @@ a:hover {
     text-align: left;
     width: 40%;
     height: 300px;
+    p {
+        font-size: 17.5px;
+    }
     @media (max-width: 900px) {
         width: 100%;
         height: 200px;
-
+    }
+    a {
+        font-weight: bold;
+        margin-bottom: 20px;
+        display: block;
     }
 }
 
-#box2 > p {
-    font-size: 17.5px;
-}
 
 #box1>p,
 #box2>p,
@@ -115,9 +127,11 @@ a:hover {
     width: 93%;
     padding-left: 20px;
     font-size: 17.5px;
+
     @media (max-width: 1103px) {
         width: 90%;
     }
+
     @media (max-width: 900px) {
         width: 88%;
     }
@@ -128,42 +142,30 @@ a:hover {
     padding-left: 20px;
 }
 
-#box2>a {
-    font-weight: bold;
-    margin-bottom: 20px;
-    display: block;
-}
-
 #box3 {
     width: 80%;
     height: 300px;
-
+    h2 {
+        text-align: left;
+        padding-left: 20px;
+    }
     @media (max-width: 900px) {
         width: 100%;
     }
-}
-
-#box3 h2 {
-    text-align: left;
-    padding-left: 20px;
-}
-
-#box3 p,
-#box3 h3 {
-    text-align: left;
-    padding-left: 20px;
-    width: 94%;
-
-    @media (max-width: 900px) {
-        width: 93%;
+    p,h3 {
+        text-align: left;
+        padding-left: 20px;
+        width: 94%;
+        @media (max-width: 900px) {
+            width: 93%;
+        }
     }
-}
-#box3 p {
+p {
     font-size: 17.5px;
 }
-
-#box3 h3 {
+h3 {
     color: #5e5e5e
+}
 }
 
 #box4 {
@@ -172,7 +174,6 @@ a:hover {
     height: 300px;
     position: relative;
     overflow: scroll;
-
     @media (max-width: 900px) {
         width: 100%;
     }
@@ -180,20 +181,136 @@ a:hover {
 
 #b4-nkm {
     display: grid;
-}
-
-#b4-nkm>a {
-    margin-bottom: 15px;
-    font-family: "IBM Plex Mono";
-    font-weight: bold;
-    font-size: 17.5px;
+    a {
+        margin-bottom: 15px;
+        font-family: "IBM Plex Mono";
+        font-weight: bold;
+        font-size: 17.5px;}
 }
 
 .archives {
+    width: 100%;
     display: grid;
+    text-align: left;
+    padding: 0em 0em 0em 30px;
+    border-left-width: 20px;
+    @media (max-width: 900px) {
+        width: 100%;
+    }
+    a {
+        margin-bottom: 15px;
+        font-family: "IBM Plex Mono";
+    }
 }
 
-.archives>a {
-    margin-bottom: 15px;
-    font-family: "IBM Plex Mono";
+#box5 {
+    text-align: left;
+    height: 200px;
+    width: 100%;
+    border-left-width: 20px;
+    h1,p{
+        padding: 0em 0em 0em 30px;
+    }
+}
+
+.menu {
+    width: 25%;
+    border-radius: 0px 0px 10px 10px;
+    padding: 0.5em 0em 0.5em 0em;
+    transition: 0.3s;
+    a {
+        color: #3b6a6e;
+        font-size: 20px;
+    
+        @media (max-width: 900px) {
+            font-size: 15px;
+    
+        }
+    }
+}
+
+.menu:hover {
+    width: 40%;
+    background: #3b6a6e;
+
+    a {
+        color: #ffffff;
+    }
+
+    @media (max-width: 900px) {
+        width: 25%;
+        transition: 0.3s;
+    }
+}
+
+
+.menu-container {
+    display: flex;
+    width: 70%;
+    margin: auto;
+    display: flex;
+    gap: 5px;
+    transition: 0.3s;
+
+
+    @media (max-width: 1103px) {
+        width: 95%;
+        transition: 0.3s;
+    }
+
+    @media (max-width: 900px) {
+        width: 90%;
+        transition: 0.3s;
+    }
+}
+
+#menu2,
+#menu3 {
+    border-radius: 0px 0px 0px 0px;
+}
+
+#menu1 {
+    border-radius: 0px 0px 0px 10px;
+}
+
+#menu4 {
+    border-radius: 0px 0px 10px 0px;
+}
+
+.download{
+    text-align: left;
+    >h2,p{
+        padding: 0px 0px 0px 30px;
+        width: 90%;
+    }
+    p{
+        margin-bottom: 50px;
+    }
+    .button{
+        margin-left: 30px;
+    }
+    height: 250px;
+}
+
+.button{
+    display: block;
+    width: 150px;
+    height:50px;
+    background-color: #3b6a6e;
+    color: #ffffff;
+    text-align: center;
+    margin: auto;
+    border-radius: 5px;
+    appearance: none;
+    border: none;
+    font-size: 17px;
+    margin-bottom: 20px;
+    line-height:50px;
+}
+
+.button:hover{
+    cursor:pointer;
+    color: #ffffff;
+    background-color: #354e50;
+    transition: 0.3s;
 }

@@ -16,42 +16,57 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300&family=IBM+Plex+Sans+JP:wght@100;200;300;400;500;600;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@600&family=IBM+Plex+Sans+JP:wght@100;200;300;400;500;600;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
-    <br>
-    <header class="box" id="head"><a href="/">ei-max.net</a></header>
+    <header class="box" id="head">
+        <a href="/" id="home">ei-max.net</a>
+    </header>
+    <div class="menu-container">
+        <menu class="box menu" id="menu1">
+            <a href="/download.html" class="headlink">Download</a>
+        </menu>
+        <menu class="box menu" id="menu2">
+            <a href="/archives.html" class="headlink">Archives</a>
+        </menu>
+        <menu class="box menu" id="menu3">
+            <a href="/" class="headlink">?</a>
+        </menu>
+        <menu class="box menu" id="menu4">
+            <a href="/" class="headlink">?</a>
+        </menu>
+    </div>
     <div class="contents" id="c1">
-        <div class="box" id="box1">
+        <section class="box" id="box1">
             <h2>Who am I</h2>
             <p>いろいろやってる学生です。トクイなのはCSSだと思います。<br>
                 圧倒的フロントエンドです、まじでJSできません。
                 何かが完成した時のあの快感を味わうのが好きです。
            <br> 好きな教科は、数学、理科、社会、英語あと美術。<br>んー理系文系のバランスが！</p>
-        </div>
-        <div class="box" id="box2">
+        </section>
+        <section class="box" id="box2">
             <h2>Where am I</h2>
             <a href="https://scratch.mit.edu/users/ei-max/">Scratch</a>
             <a href="https://github.com/eimax9668">GitHub</a>
             <a href="https://bsky.app/profile/335019.f5.si">Bluesky</a>
-        </div>
+        </section>
     </div>
     <div class="contents" id="c2">
-        <div class="box" id="box3">
-            <div id="blog">
+        <section class="box" id="box3">
+            <article id="blog">
                 <h2>Sometimes blog</h2>
-            </div>
-        </div>
+            </article>
+        </section>
         <div class="box" id="box4">
             <div id="b4-nkm">
                 <h2>Archives</h2>
+                <a href="javascript:show('blog/20241005.txt')">2024/10/5</a>
                 <a href="javascript:show('blog/20241001.txt')">2024/10/1</a>
                 <a href="javascript:show('blog/20240930.txt')">2024/9/30</a>
                 <a href="javascript:show('blog/20240929.txt')">2024/9/29</a>
                 <a href="javascript:show('blog/20240928.txt')">2024/9/28</a>
-                <br>
                 <a href="archives.html">See all archives</a>
             </div>
         </div>
