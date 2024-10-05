@@ -78,7 +78,6 @@ a:hover {
 
 #home {
     font-weight: 800;
-    color: #3b6a6e;
     font-size: 35px;
 }
 
@@ -189,28 +188,39 @@ h3 {
 }
 
 .archives {
-    width: 100%;
+    width: calc(100% - 20px);
     display: grid;
     text-align: left;
-    padding: 0em 0em 0em 30px;
     border-left-width: 20px;
+    @media (max-width: 1103px) {
+        width: 100%
+    }
     @media (max-width: 900px) {
-        width: 100%;
+        width: calc(100% - 20px);
     }
     a {
+        padding: 0em 0em 0em 30px;
         margin-bottom: 15px;
         font-family: "IBM Plex Mono";
+    }
+    h1{
+        padding: 0em 0em 0em 30px;
     }
 }
 
 #box5 {
     text-align: left;
     height: 200px;
-    width: 100%;
     border-left-width: 20px;
-    h1,p{
-        padding: 0em 0em 0em 30px;
+    width: calc(70% - 20px);
+    @media (max-width: 1103px) {
+        width: calc(95% - 20px);
     }
+    @media (max-width: 900px) {
+        width: calc(90% - 20px);
+    }
+    h1,p{
+        padding: 0em 0em 0em 30px;    }
 }
 
 .menu {
@@ -290,16 +300,22 @@ h3 {
         margin-left: 30px;
     }
     height: 250px;
+    @media (max-width: 1103px) {
+        width: 95%;
+        transition: 0.3s;
+    }
+    @media (max-width: 900px) {
+        width: 90%;
+        transition: 0.3s;
+    }
 }
 
 .button{
     display: block;
-    width: 150px;
     height:50px;
     background-color: #3b6a6e;
     color: #ffffff;
     text-align: center;
-    margin: auto;
     border-radius: 5px;
     appearance: none;
     border: none;
@@ -313,4 +329,16 @@ h3 {
     color: #ffffff;
     background-color: #354e50;
     transition: 0.3s;
+}
+
+.buttons{
+    display:flex;
+}
+
+#look{
+    width: 200px;
+}
+
+.downloadbutton{
+    width: 150px;
 }
