@@ -72,11 +72,11 @@ function show(url) {
       return response.text();
     })
     .then(data => {
-          document.getElementById('blog').innerHTML = data;
-          if (IsError == 1){
-            document.getElementById('blog').innerHTML = "<h1>エラー</h1>";
-          }
-        }
+      document.getElementById('blog').innerHTML = data;
+      if (IsError == 1) {
+        document.getElementById('blog').innerHTML = "<h1>エラー</h1>";
+      }
+    }
     )
     .catch(error => {
       console.error('エラーが発生しました:', error);
