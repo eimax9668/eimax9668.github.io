@@ -5,7 +5,8 @@ html {
 
 * {
     color: #3e3e3e;
-    font-family: "Inter", "IBM Plex Sans JP";
+    font-family: "Inter", "IBM Plex Mono", "IBM Plex Sans JP";
+    appearance: none;
 }
 
 a {
@@ -27,21 +28,26 @@ a:hover {
     gap: 40px;
     transition: 0.3s;
 
-    @media (max-width: 1103px) {
-        width: 95%;
-        transition: 0.3s;
-    }
-
     @media (max-width: 900px) {
         display: block;
         width: 90%;
+        transition: 0.3s;
+
+        #box2,
+        #box3,
+        #box4 {
+            width: 95%;
+        }
+    }
+
+    @media (max-width: 1103px) {
+        width: 95%;
         transition: 0.3s;
     }
 }
 
 .box {
     border: 1.5px solid #3b6a6e;
-    width: 70%;
     border-radius: 10px;
     background-color: #ffffff;
     text-align: center;
@@ -54,9 +60,6 @@ a:hover {
 #head {
     width: 69.8%;
     height: 70px;
-}
-
-#head {
     border-radius: 10px 10px 0px 0px;
     display: flex;
     justify-content: center;
@@ -76,10 +79,7 @@ a:hover {
     }
 }
 
-#home {
-    font-weight: 800;
-    font-size: 35px;
-}
+#home { font-weight: 800;  font-size: 35px;}
 
 .headlink {
     font-weight: 600;
@@ -87,6 +87,10 @@ a:hover {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: 900px) {
+        font-size: 15px;
+    }
 }
 
 #box1 {
@@ -96,8 +100,8 @@ a:hover {
     line-height: 30px;
 
     @media (max-width: 900px) {
-        width: 100%;
         height: 350px;
+        width: 95%;
     }
 }
 
@@ -105,20 +109,16 @@ a:hover {
     text-align: left;
     width: 40%;
     height: 300px;
-    p {
-        font-size: 17.5px;
-    }
-    @media (max-width: 900px) {
-        width: 100%;
-        height: 200px;
-    }
-    a {
-        font-weight: bold;
-        margin-bottom: 20px;
-        display: block;
-    }
 }
 
+#box2 p {font-size: 17.5px;}
+
+#box2 a {
+    font-weight: bold;
+    margin-bottom: 20px;
+    display: block;
+}
+#box3 h2{padding-top: -20px;}
 
 #box1>p,
 #box2>p,
@@ -137,34 +137,36 @@ a:hover {
 }
 
 #box1>h2,
-#box2>h2 {
-    padding-left: 20px;
-}
+#box2>h2 { padding-left: 20px;}
 
 #box3 {
+    text-align: left;
     width: 80%;
     height: 300px;
+
     h2 {
-        text-align: left;
         padding-left: 20px;
     }
+
+    p {
+        font-size: 17.5px;
+    }
+
+    h3 {
+        color: #5e5e5e
+    }
+}
+
+#box3 p,
+#box3 h3,
+#box3 h2 {
+    text-align: left;
+    padding: 0px 0px 0px 20px;
+    width: 94%;
+
     @media (max-width: 900px) {
-        width: 100%;
+        width: 93%;
     }
-    p,h3 {
-        text-align: left;
-        padding-left: 20px;
-        width: 94%;
-        @media (max-width: 900px) {
-            width: 93%;
-        }
-    }
-p {
-    font-size: 17.5px;
-}
-h3 {
-    color: #5e5e5e
-}
 }
 
 #box4 {
@@ -173,86 +175,78 @@ h3 {
     height: 300px;
     position: relative;
     overflow: scroll;
-    @media (max-width: 900px) {
-        width: 100%;
-    }
 }
 
 #b4-nkm {
     display: grid;
-    a {
+}
+
+#b4-nkm a{
+    
         margin-bottom: 15px;
         font-family: "IBM Plex Mono";
         font-weight: bold;
-        font-size: 17.5px;}
+        font-size: 17.5px;
+
 }
 
 .archives {
-    width: calc(100% - 20px);
+    width: 100%;
     display: grid;
     text-align: left;
     border-left-width: 20px;
-    @media (max-width: 1103px) {
-        width: 100%
-    }
+}
+
+.archives{
     @media (max-width: 900px) {
-        width: calc(100% - 20px);
-    }
-    a {
-        padding: 0em 0em 0em 30px;
-        margin-bottom: 15px;
-        font-family: "IBM Plex Mono";
-    }
-    h1{
-        padding: 0em 0em 0em 30px;
+        width: 90%;
     }
 }
+
+.archives a {padding: 0em 0em 0em 30px; margin-bottom: 15px;}
+
+.archives  h1 {padding-left : 30px;}
 
 #box5 {
     text-align: left;
     height: 200px;
     border-left-width: 20px;
     width: calc(70% - 20px);
+
     @media (max-width: 1103px) {
         width: calc(95% - 20px);
     }
+
     @media (max-width: 900px) {
         width: calc(90% - 20px);
     }
-    h1,p{
-        padding: 0em 0em 0em 30px;    }
 }
+
+#box5>h1,
+p {  padding: 0px 0px 0px 25px;}
 
 .menu {
     width: 25%;
     border-radius: 0px 0px 10px 10px;
     padding: 0.5em 0em 0.5em 0em;
     transition: 0.3s;
+
     a {
         color: #3b6a6e;
         font-size: 20px;
-    
+
         @media (max-width: 900px) {
             font-size: 15px;
-    
+
         }
     }
 }
-
-.menu:hover {
-    width: 40%;
-    background: #3b6a6e;
-
+.menu:hover {   background: #3b6a6e;}
+.menu:hover{
     a {
         color: #ffffff;
     }
-
-    @media (max-width: 900px) {
-        width: 25%;
-        transition: 0.3s;
-    }
 }
-
 
 .menu-container {
     display: flex;
@@ -275,44 +269,52 @@ h3 {
 }
 
 #menu2,
-#menu3 {
-    border-radius: 0px 0px 0px 0px;
-}
+#menu3 {border-radius: 0px 0px 0px 0px;}
 
-#menu1 {
-    border-radius: 0px 0px 0px 10px;
-}
+#menu1 {border-radius: 0px 0px 0px 10px;}
 
-#menu4 {
-    border-radius: 0px 0px 10px 0px;
-}
+#menu4 { border-radius: 0px 0px 10px 0px;}
 
-.download{
+.download {
+    height: 250px;
     text-align: left;
-    >h2,p{
+    width: 70%;
+
+    >h2,
+    p {
         padding: 0px 0px 0px 30px;
         width: 90%;
     }
-    p{
+
+    p {
         margin-bottom: 50px;
     }
-    .button{
+
+    .button {
         margin-left: 30px;
     }
-    height: 250px;
+}
+
+.download {
     @media (max-width: 1103px) {
         width: 95%;
         transition: 0.3s;
     }
+}
+
+.download{
+
     @media (max-width: 900px) {
         width: 90%;
         transition: 0.3s;
     }
+
 }
 
-.button{
+.button {
+    width: 160px;
     display: block;
-    height:50px;
+    height: 50px;
     background-color: #3b6a6e;
     color: #ffffff;
     text-align: center;
@@ -321,24 +323,65 @@ h3 {
     border: none;
     font-size: 17px;
     margin-bottom: 20px;
-    line-height:50px;
+    line-height: 50px;
+
+    @media (max-width: 900px) {
+        font-size: 15px;
+        width: 130px;
+        height: 50px;
+        line-height: 50px;
+    }
 }
 
-.button:hover{
-    cursor:pointer;
+.button:hover {
+    cursor: pointer;
     color: #ffffff;
     background-color: #354e50;
     transition: 0.3s;
 }
 
-.buttons{
-    display:flex;
+.buttons {
+    display: flex;
+    width: 90%;
+    gap: 0px;
+
+    @media (max-width: 900px) {
+        gap: 8px;
+    }
 }
 
-#look{
+#look {
     width: 200px;
 }
 
-.downloadbutton{
-    width: 150px;
+.downloadbutton {
+    @media (max-width: 900px) {
+        margin-left: 25px;
+    }
+}
+
+.one {
+    @media (max-width: 900px) {
+        margin-left: 17px;
+    }
+}
+
+#box6{
+    text-align: left;
+    width:70%;
+    @media (max-width: 1103px) {
+        width:95%
+    }
+    @media (max-width: 900px) {
+        width:90%;
+    }
+}
+#box6 h2, #box6 p{
+        padding: 0px 0px 0px 30px;
+        width: 90%;
+}
+
+.archives a{    font-family: "IBM Plex Mono";
+    font-weight: 500;
+    font-size: 20px;
 }
