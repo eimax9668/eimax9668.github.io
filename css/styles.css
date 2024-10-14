@@ -23,6 +23,13 @@ a:hover {
 	display: flex;
 	gap: 40px;
 	transition: 0.3s;
+}
+
+.contents{
+	@media (max-width: 1103px) {
+		width: 95%;
+		transition: 0.3s;
+	}
 	@media (max-width: 900px) {
 		display: block;
 		width: 90%;
@@ -31,11 +38,8 @@ a:hover {
 			width: 95%;
 		}
 	}
-	@media (max-width: 1103px) {
-		width: 95%;
-		transition: 0.3s;
-	}
 }
+
 .box {
 	border: 1.5px solid #3b6a6e;
 	border-radius: 10px;
