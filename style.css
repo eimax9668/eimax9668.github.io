@@ -30,7 +30,7 @@
     margin-top: 15vh;
 }
 
-#div1,#div2{
+.box1{
 background-color: rgb(247, 247, 247);
 width: 90%;
 margin: auto;
@@ -63,24 +63,30 @@ p{
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     z-index: 100; /* ヘッダーを最前面に表示 */
-  }
+}
 
 #toindex{
     text-decoration: none;
     font-size: 30px;
     font-weight: bolder;
     color: #2e2e2e;
+    width: 50%;
+    display:grid;
   }
 
-  a{
+  a.p1{
     text-decoration: none;
     font-size: 25px;
     font-weight:600;
     color: #2e2e2e;
     transition: 0.3s;
-    width: 50%;
+    width: 30%;
     display:grid;
   }
+
+#p1last{
+    padding-bottom: 30px;
+}
 
   a:hover{
     color: #6e6e6e;
