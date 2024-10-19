@@ -1,5 +1,0 @@
-<h2>Sometimes blog</h2>
-<h3>2024/9/29</h3>
-            <p>FirefoxでScratch Addonsを使っていましたが、突如バグって使えなくなりました。<br>
-            仕方なくChromeを使うことにしましたが、「やっぱりChromeいいなw」となり、
-            そのままメインブラウザをChromeにしました。ごめんFirefox</p>        </div>
