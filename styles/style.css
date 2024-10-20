@@ -1,0 +1,131 @@
+* {
+    font-family: "Montserrat", "BIZ UDGothic";
+    text-align: center;
+    margin: auto;
+}
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 100; /* ヘッダーを最前面に表示 */
+    box-shadow: 0px 10px 30px -15px #777777;
+}
+#toindex~a{
+    margin: 70px;
+    font-weight: bold;
+    position: relative; /* 子要素を相対的に配置するために必要 */
+    display: inline-block; /* インライン要素をブロック要素のように扱う */
+    text-decoration: none; /* アンダーラインを消す */
+    padding: 10px 20px; /* リンクの余白 */
+    background-color: transparent; /* 背景色を透明にする */
+    transition: 0.25s;
+    font-size: 20px;
+    color: #2e2e2e;
+}
+
+#toindex~a::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px; /* 角丸の半径 */
+    background-color: rgba(0, 0, 0, 0.1); /* 半透明の黒色 */
+    opacity: 0; /* 初期状態では非表示 */
+    transition: opacity 0.25s ease-in-out; /* フェードイン/アウトのアニメーション */
+    z-index: -10;
+  }
+  
+  #toindex~a:hover::after {opacity: 1; }
+
+#toindex{
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: bolder;
+    color: #2e2e2e;
+    display:grid;
+    width: 20%;
+    margin: 0px;
+  }
+
+
+  a:hover{
+    color: #6e6e6e;
+    transition: 0.3s;
+  }
+
+  p{
+    font-size: 23px;
+    color: #3e3e3e;
+    margin-left: 4vw;
+}
+
+  @media (max-width: 768px) {
+      sbr{ display: block;}
+      #toindex~a{
+        margin: 10px;
+    }    
+    #toindex{
+        font-size: 25px;
+        margin-right: 20px;
+        margin-left: 10px;
+        width: 50%;
+    }
+
+    h1{
+        margin-left: 10px;
+    }
+    p{
+        width: 83%;
+        margin-left: 45px;
+        font-size:20px;
+    }
+  }
+
+    article{
+      width: 90%;
+      background-color:rgb(247, 247, 247);
+      height: 500px;
+    }
+
+    article h1,  article p,  article a,article h2{
+        text-align: left;
+    }
+    h1{
+        font-size: 50px;
+        padding: 30px;
+        display: block;
+        margin-left: 2vw;
+    }
+    h2{
+        font-size: 30px;
+        padding: 30px;
+        display: block;
+        margin-left: 2vw;
+    }
+    h1::before{
+        width:25px;
+        height:0.5em;
+        background-color:#bebebe;
+        content: '.';
+        color:#bebebe;
+        margin-right: 15px;
+    }
+
+    h2::before{
+        width:25px;
+        height:0.5em;
+        background-color:#bebebe;
+        content: '.';
+        color:#bebebe;
+        margin-right: 15px;
+    }
