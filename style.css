@@ -26,8 +26,16 @@
     margin-bottom: 30px;
 }
 
+.txt4{
+    font-size: 30px;
+    text-align: left;
+    padding-top: 30px;
+    display: block;
+  }
+
 #img{
-    margin-top: 15vh;
+    margin-top: 140px;
+    animation: animation 1.7s ease-in-out infinite;
 }
 
 .box1{
@@ -43,12 +51,28 @@ p{
     color: #6d6c6c;
 }
 
-.p1{
+.p1,.p2{
     display: inline-block;
-    width: 90%;
     margin-bottom: 30px;
-    line-height: 4.5vh;
+    line-height: 40px;
 }
+
+.p1{
+    width: 90%;
+
+}
+
+a.p2{
+    width: 100%;
+    font-size: 23px;
+}
+
+.p3{
+    text-align: left;
+    color: #6d6c6c;
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
 
   header {
     position: fixed;
@@ -63,6 +87,7 @@ p{
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     z-index: 100; /* ヘッダーを最前面に表示 */
+    box-shadow: 0px 10px 30px -15px #777777;
 }
 
 #toindex{
@@ -74,17 +99,16 @@ p{
     display:grid;
   }
 
-  a.p1{
+  a.p1,.p2{
     text-decoration: none;
     font-size: 25px;
     font-weight:600;
     color: #2e2e2e;
     transition: 0.3s;
-    width: 30%;
     display:grid;
   }
 
-#p1last{
+#p1last,#p2last{
     padding-bottom: 30px;
 }
 
@@ -92,3 +116,61 @@ p{
     color: #6e6e6e;
     transition: 0.3s;
   }
+
+  .flex1{
+    display: flex;
+    width: 90%;
+    gap:30px;
+  }
+
+  #div2,#div3{
+    width: 50%;
+  }
+
+  @media (max-width: 768px) {
+    .flex1{
+        flex-direction: column;
+        width: 90%;
+      }
+      #div2,#div3{
+        width: 100%;
+      }
+      #div3{
+        margin-top: 10px;
+      }
+      #div4{
+        flex-direction: column;
+      }
+      .div4_1 .txt3 , .div4_1 .p1{
+        margin-left: 20px;
+        display: block;
+        width: 98%;
+      }
+  }
+
+  .div4_1 p,.div4_1 .txt3{
+    text-align: left;
+    width: 100%;
+  }
+
+  #div4{
+    display: flex;
+  }
+
+  .div4_2{
+    text-align: left;
+  }
+
+  @keyframes animation {
+    0% {
+    transform: translateY(0);
+    }  
+    50% {
+    
+    transform: translateY(-6%);
+    }
+    100% {
+    
+    transform: translateY(0);
+    }
+    }
