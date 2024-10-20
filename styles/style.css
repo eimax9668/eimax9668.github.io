@@ -64,9 +64,14 @@
   }
 
   p{
-    font-size: 23px;
+    font-size: 17px;
     color: #3e3e3e;
     margin-left: 4vw;
+    width: auto;
+}
+a{
+    color: #3e3e3e;
+    text-decoration: none;
 }
 
   @media (max-width: 768px) {
@@ -87,14 +92,16 @@
     p{
         width: 83%;
         margin-left: 45px;
-        font-size:20px;
+        font-size:17px;
     }
   }
 
     article{
       width: 90%;
       background-color:rgb(247, 247, 247);
-      height: 500px;
+      height: auto;
+      line-height: 40px;
+    border-radius: 10px;
     }
 
     article h1,  article p,  article a,article h2{
@@ -128,4 +135,8 @@
         content: '.';
         color:#bebebe;
         margin-right: 15px;
+    }
+
+    .spacer{
+        margin-bottom: 40px;
     }

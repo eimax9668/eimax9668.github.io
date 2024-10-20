@@ -195,13 +195,13 @@ a.p2{
 
   @keyframes animation {
     0% {
-    transform: translateY(0);
+    transform: translateY(6.5%);
     }  
     50% {   
-    transform: translateY(-6%);
+    transform: translateY(0%);
     }
     100% {
-    transform: translateY(0);
+    transform: translateY(6.5%);
     }
     }
 
@@ -212,3 +212,7 @@ a.p2{
       background-color:rgb(247, 247, 247);
       height: 500px;
     }
+
+    .spacer{
+      margin-bottom: 50px;
+  }
