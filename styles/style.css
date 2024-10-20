@@ -77,22 +77,20 @@ a{
   @media (max-width: 768px) {
       sbr{ display: block;}
       #toindex~a{
-        margin: 10px;
+        margin: 15px;
+        width: 15%;
+        font-size: 20px;
     }    
     #toindex{
-        font-size: 25px;
-        margin-right: 20px;
-        margin-left: 10px;
-        width: 50%;
-    }
-
-    h1{
-        margin-left: 10px;
-    }
-    p{
-        width: 83%;
-        margin-left: 45px;
-        font-size:17px;
+    	text-indent:100%;
+	white-space:nowrap;
+	overflow:hidden;
+      background-image:url(../box.svg);
+      background-size: cover;
+      width: 40px;
+      height: 40px;
+      margin-left: 30px;
+      margin-right: 25px;
     }
   }
 

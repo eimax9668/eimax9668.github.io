@@ -149,7 +149,7 @@ a.p2{
 
   #div2,#div3{width: 50%;}
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     .flex1{
         flex-direction: column;
         width: 90%;
@@ -168,12 +168,20 @@ a.p2{
       sbr{ display: block;}
 
       #toindex~a{
-        margin: 10px;
+        margin: 15px;
+        width: 15%;
+        font-size: 20px;
     }    
     #toindex{
-        font-size: 25px;
-        margin-left: 10px;
-        width: 50%;
+    	text-indent:100%;
+	white-space:nowrap;
+	overflow:hidden;
+      background-image:url(../box.svg);
+      background-size: cover;
+      width: 40px;
+      height: 40px;
+      margin-left: 30px;
+      margin-right: 25px;
     }
   }
 
