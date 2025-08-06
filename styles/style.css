@@ -1,140 +1,180 @@
-* {
-    font-family: "Montserrat", "BIZ UDGothic";
-    text-align: center;
-    margin: auto;
-}
-  header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    z-index: 100; /* ヘッダーを最前面に表示 */
-    box-shadow: 0px 10px 30px -15px #777777;
-}
-#toindex~a{
-    margin: 70px;
-    font-weight: bold;
-    position: relative; /* 子要素を相対的に配置するために必要 */
-    display: inline-block; /* インライン要素をブロック要素のように扱う */
-    text-decoration: none; /* アンダーラインを消す */
-    padding: 10px 20px; /* リンクの余白 */
-    background-color: transparent; /* 背景色を透明にする */
-    transition: 0.25s;
-    font-size: 20px;
-    color: #2e2e2e;
+/* 基本リセット＆フォントなど */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-#toindex~a::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 10px; /* 角丸の半径 */
-    background-color: rgba(0, 0, 0, 0.1); /* 半透明の黒色 */
-    opacity: 0; /* 初期状態では非表示 */
-    transition: opacity 0.25s ease-in-out; /* フェードイン/アウトのアニメーション */
-    z-index: -10;
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", "Noto Sans JP";
+  color: #333;
+}
+
+/* リンクの下線は基本なし */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* mainの幅指定＆中央寄せ */
+main {
+  width: 60vw;
+  margin: 90px auto 0 auto; /* 上マージンでheaderの下に */
+}
+
+/* ヘッダー */
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60vw;            /* 横幅60vw */
+  margin: 0 auto;         /* 中央寄せ */
+  padding: 13px 0;
+  background-color: #f9f9f9;
+  border-radius: 0 0 4px 4px;
+  border-right: solid #f0f0f0 1.5px;
+  border-left: solid #f0f0f0 1.5px;
+  border-bottom: solid #f0f0f0 1.5px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  box-sizing: border-box;
+  gap:50px;
+}
+
+/* ヘッダー内リンクのスタイル */
+header a:not(#header):not(#index-small) {
+    position: relative;
+    display: inline-block;
+    font-weight: bold;
+    padding: 0.3em 0.7em;
+    z-index: 1;
+    color: #333;
   }
   
-  #toindex~a:hover::after {opacity: 1; }
-
-#toindex{
-    text-decoration: none;
-    font-size: 30px;
-    font-weight: bolder;
-    color: #2e2e2e;
-    display:grid;
-    width: 20%;
-    margin: 0px;
-  }
-
-
-  a:hover{
-    color: #6e6e6e;
-    transition: 0.3s;
-  }
-
-  p{
-    font-size: 17px;
-    color: #3e3e3e;
-    margin-left: 4vw;
-    width: auto;
-}
-a{
-    color: #3e3e3e;
-    text-decoration: none;
+/* ホバー時の背景角丸 */
+header a:not(#header):not(#index-small)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #f0f0f0;
+  border-radius: 8px;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
 }
 
-  @media (max-width: 768px) {
-      sbr{ display: block;}
-      #toindex~a{
-        margin: 15px;
-        width: 15%;
-        font-size: 20px;
-    }    
-    #toindex{
-    	text-indent:100%;
-	white-space:nowrap;
-	overflow:hidden;
-      background-image:url(../box.svg);
-      background-size: cover;
-      width: 40px;
-      height: 40px;
-      margin-left: 30px;
-      margin-right: 25px;
-    }
+header a:not(#header):not(#index-small):hover::after {
+  opacity: 1;
+}
+
+/* ロゴのフォント設定 */
+#header {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+#index-small {
+  font-weight: bold;
+  display: none;
+}
+
+/* タイトルなど */
+h1 {
+  margin-top: 3vh;
+  font-size: 30px;
+  margin-bottom: 3vh;
+}
+
+h1 span {
+  position: relative;
+  padding: 0 5px;
+}
+
+h1 span::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 50%;
+  background-color: #f0f0f09e;
+  border-radius: 4px;
+  z-index: -1;
+}
+
+h2 {
+  margin-top: 2vh;
+}
+
+p {
+  margin-top: 1vh;
+  font-size: 17px;
+  line-height: 25px;
+}
+
+/* スペーサー */
+.spacer {
+  display: block;
+  height: 0.7em;
+}
+
+/* リンク一般スタイル */
+.links {
+  font-weight: 600;
+  color: #416dc0;
+  transition: background-color 0.2s;
+}
+
+.links:hover {
+  background-color: #f0f0f0;
+}
+
+/* 画像 */
+img {
+  width: 300px;
+  height: auto;
+}
+
+/* 歴史コンテナ */
+.history-container {
+  box-sizing: border-box;
+  display: flex;
+  width: 70vw;
+  margin: auto;
+}
+
+/* メディアクエリ（スマホ対応） */
+@media (max-width: 850px) {
+
+  /* ロゴ切り替え */
+  #header {
+    display: none;
   }
 
-    article{
-      width: 90%;
-      background-color:rgb(247, 247, 247);
-      height: auto;
-      line-height: 40px;
-    border-radius: 10px;
-    }
+  #index-small {
+    display: inline;
+    font-size: 16px;
+  }
 
-    article h1,  article p,  article a,article h2{
-        text-align: left;
-    }
-    h1{
-        font-size: 50px;
-        padding: 30px;
-        display: block;
-        margin-left: 2vw;
-    }
-    h2{
-        font-size: 30px;
-        padding: 30px;
-        display: block;
-        margin-left: 2vw;
-    }
-    h1::before{
-        width:25px;
-        height:0.5em;
-        background-color:#bebebe;
-        content: '.';
-        color:#bebebe;
-        margin-right: 15px;
-    }
+  /* 全体幅調整 */
+  main {
+    width: 80vw;
+    margin: 90px auto 0 auto;
+  }
 
-    h2::before{
-        width:25px;
-        height:0.5em;
-        background-color:#bebebe;
-        content: '.';
-        color:#bebebe;
-        margin-right: 15px;
-    }
+  header {
+    width: 80vw;
+    margin: 0 auto;
+    padding: 10px 0;
+  }
 
-    .spacer{
-        margin-bottom: 40px;
-    }
+  header a:not(#header):not(#index-small) {
+    padding: 0.2em 0.5em;
+    font-size: 14px;
+  }
+}
