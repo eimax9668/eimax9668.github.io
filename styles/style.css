@@ -12,25 +12,22 @@ body, html {
   color: #333;
 }
 
-/* リンクの下線は基本なし */
 a {
   text-decoration: none;
   color: inherit;
 }
 
-/* mainの幅指定＆中央寄せ */
 main {
   width: 60vw;
-  margin: 90px auto 0 auto; /* 上マージンでheaderの下に */
+  margin: 90px auto 0 auto; 
 }
 
-/* ヘッダー */
 header {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 60vw;            /* 横幅60vw */
-  margin: 0 auto;         /* 中央寄せ */
+  width: 60vw;            
+  margin: 0 auto;         
   padding: 13px 0;
   background-color: #f9f9f9;
   border-radius: 0 0 4px 4px;
@@ -140,7 +137,7 @@ img {
   height: auto;
 }
 
-/* 歴史コンテナ */
+
 .history-container {
   box-sizing: border-box;
   display: flex;
@@ -148,8 +145,39 @@ img {
   margin: auto;
 }
 
+.blog_h1{
+margin-bottom: 0;}
+
+.blog_h2{
+  font-size: 24px;
+  margin-top: 1vh;
+  margin-bottom: 5vh;
+}
+
+.article{
+  background-color: #f9f9f9;
+  border: solid #f0f0f0 1.5px;
+  border-radius: 4px;
+  width: 70%;
+  height: 100%;
+  padding: 10px 5px 17px 13px;
+  display: block;
+  font-size:24px;
+  font-weight: 700;
+  margin-bottom: 2vh;
+  a:hover{
+    text-decoration: underline;
+  }
+}
+.article-date{
+  font-size:14px;
+  color:#666666;
+  font-weight: 400;
+}
+
+
 /* メディアクエリ（スマホ対応） */
-@media (max-width: 850px) {
+@media (max-width: 870px) {
 
   /* ロゴ切り替え */
   #header {
@@ -171,6 +199,7 @@ img {
     width: 80vw;
     margin: 0 auto;
     padding: 10px 0;
+    gap:30px;
   }
 
   header a:not(#header):not(#index-small) {
@@ -181,4 +210,6 @@ img {
   header a:not(#header):not(#index-small) {
     padding: 0em 0em 0em 0em;
   }
+
+  .article{width:100%;}
 }
