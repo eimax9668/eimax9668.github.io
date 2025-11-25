@@ -119,6 +119,10 @@ p {
   display: block;
   height: 0.7em;
 }
+.spacer2 {
+  display: block;
+  height: 1.4em;
+}
 
 /* リンク一般スタイル */
 .links {
@@ -212,4 +216,5 @@ margin-bottom: 0;}
   }
 
   .article{width:100%;}
+  .article-link{font-size:18px;}
 }
