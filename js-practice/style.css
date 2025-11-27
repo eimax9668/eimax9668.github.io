@@ -1,0 +1,59 @@
+html{
+    margin: auto;
+    width: 60%;
+    color: #333;
+    font-family: "IBM Plex Mono","IBM Plex Sans JP";
+}
+*{
+font-weight:400;
+}
+h1:before{
+    content:"┃";
+}
+h2:before{
+    content:"・";
+}
+#jankenlog{
+    border: solid #333;
+    width: 50%;
+    display: block;
+    padding-left: 0.5em;
+}
+
+input{
+border: solid #333;
+height: 2em;
+font-family: "IBM Plex Mono","IBM Plex Sans JP";
+
+}
+button{
+height: 2em;
+border: solid #333;
+    background-color: #f1efef;
+}
+
+button:hover{
+    background-color: #bbb9b9;
+}
+
+@media (max-width: 870px) {
+    html{
+        width: 90%;
+    }
+    h1{
+        font-size: 1.5em;
+    }
+}   
+
+hr{
+    margin-top: 5vh;
+    border: solid #333 1.14px;
+}
+
+a{
+    text-decoration: none;
+    color: #333;
+}
+a:hover{
+    text-decoration: underline;
+}
