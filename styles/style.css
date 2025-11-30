@@ -6,41 +6,47 @@
 }
 
 body, html {
+  background-color: light-dark(#fff, #1f1f1f);
   margin: 0;
   padding: 0;
-  font-family: "Inter", "Noto Sans JP";
-  color: #333;
+  font-family: "Inter", "IBM Plex Sans JP", "Bootstrap-icons", sans-serif;
+  color: light-dark(#333, #e5e5e5);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 a {
   text-decoration: none;
-  color: inherit;
+  color: inherit; 
 }
 
 main {
-  width: 60vw;
-  margin: 90px auto 0 auto; 
+  width: 85%;
+  max-width: 900px;
+  margin: 90px auto 15px auto; 
 }
 
 header {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 60vw;            
+  width: 85%;
+  max-width: 900px;
   margin: 0 auto;         
   padding: 13px 0;
-  background-color: #f9f9f9;
+  background-color: light-dark(rgba(249, 249, 249, 0.7), rgba(255,255,255,0.05));
+  box-shadow: 0 2px 7px light-dark(rgba(96, 96, 96, 0.1), rgba(0, 0, 0, 0));
+  backdrop-filter: blur(6px);
   border-radius: 0 0 4px 4px;
-  border-right: solid #f0f0f0 1.5px;
-  border-left: solid #f0f0f0 1.5px;
-  border-bottom: solid #f0f0f0 1.5px;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 10;
   box-sizing: border-box;
-  gap:50px;
+  gap:5%;
 }
 
 /* ヘッダー内リンクのスタイル */
@@ -50,7 +56,7 @@ header a:not(#header):not(#index-small) {
     font-weight: bold;
     padding: 0.3em 0.7em;
     z-index: 1;
-    color: #333;
+    color: light-dark(#333, #e5e5e5);
   }
   
 /* ホバー時の背景角丸 */
@@ -58,7 +64,7 @@ header a:not(#header):not(#index-small)::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: #f0f0f0;
+  background: light-dark(rgba(200, 200, 200, 0.4), rgba(100, 100, 100, 0.4));
   border-radius: 8px;
   opacity: 0;
   z-index: -1;
@@ -90,6 +96,7 @@ h1 {
 h1 span {
   position: relative;
   padding: 0 5px;
+  z-index: 1;
 }
 
 h1 span::before {
@@ -99,7 +106,7 @@ h1 span::before {
   bottom: 0;
   width: 100%;
   height: 50%;
-  background-color: #f0f0f09e;
+  background-color: light-dark(rgba(238, 238, 238, 0.65), rgba(59, 59, 59, 0.65));
   border-radius: 4px;
   z-index: -1;
 }
@@ -127,44 +134,20 @@ p {
 /* リンク一般スタイル */
 .links {
   font-weight: 600;
-  color: #416dc0;
-  transition: background-color 0.2s;
+  color: light-dark(#416dc0, #60a5fa);
 }
 
 .links:hover {
-  background-color: #f0f0f0;
-}
-
-/* 画像 */
-img {
-  width: 300px;
-  height: auto;
-}
-
-
-.history-container {
-  box-sizing: border-box;
-  display: flex;
-  width: 70vw;
-  margin: auto;
-}
-
-.blog_h1{
-margin-bottom: 0;}
-
-.blog_h2{
-  font-size: 24px;
-  margin-top: 1vh;
-  margin-bottom: 5vh;
+  text-decoration: underline;
 }
 
 .article{
-  background-color: #f9f9f9;
-  border: solid #f0f0f0 1.5px;
+  background-color: light-dark(#fafafa, #2b2b2b);
+  box-shadow: 0 2px 7px light-dark(rgba(96, 96, 96, 0.1), rgba(0, 0, 0, 0));
   border-radius: 4px;
   width: 70%;
   height: 100%;
-  padding: 10px 5px 17px 13px;
+  padding: 17px 5px 17px 13px;
   display: block;
   font-size:24px;
   font-weight: 700;
@@ -179,9 +162,25 @@ margin-bottom: 0;}
   font-weight: 400;
 }
 
-
+footer{
+  margin-top: 5vh;
+  text-align: center;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+}
+.bi-brightness-high,
+.bi-moon {
+  cursor: pointer;
+  font-size:25px;
+}
+small{
+    text-align: left;
+}
 /* メディアクエリ（スマホ対応） */
-@media (max-width: 870px) {
+@media (max-width: 700px) {
 
   /* ロゴ切り替え */
   #header {
@@ -191,19 +190,6 @@ margin-bottom: 0;}
   #index-small {
     display: inline;
     font-size: 16px;
-  }
-
-  /* 全体幅調整 */
-  main {
-    width: 80vw;
-    margin: 90px auto 0 auto;
-  }
-
-  header {
-    width: 80vw;
-    margin: 0 auto;
-    padding: 10px 0;
-    gap:30px;
   }
 
   header a:not(#header):not(#index-small) {
