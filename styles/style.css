@@ -6,6 +6,17 @@
   transition: 0.2s;
 }
 
+::selection {
+  background-color: #416dc0; 
+  color: #fff;              
+}
+
+/* ダークモード用 */
+[data-theme="dark"] ::selection {
+  background-color: #60a5fa80;
+  color: #fff;
+}
+
 body, html {
   background-color: light-dark(#fff, #1f1f1f);
   margin: 0;
@@ -208,4 +219,35 @@ small{
 #copylink::before{
 content: "\F470";
 vertical-align: middle;
+}
+.blog_menu{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+.like-button,like-count{
+    height: 32px;
+    font-size: 16px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: light-dark(#f3f3f3b3, #3a3a3a);
+  color: light-dark(#333, #e5e5e5);
+    border: none;
+}
+.like-count{
+  padding: 0 10px 0 10px;
+}
+.like-button{
+  cursor: pointer;
+}
+.like-button:hover{
+  background-color: light-dark(#ededed, #555555);
+}
+.like-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
