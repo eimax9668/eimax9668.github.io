@@ -3,6 +3,7 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  transition: 0.2s;
 }
 
 body, html {
