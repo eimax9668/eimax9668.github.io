@@ -17,6 +17,11 @@
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=IBM+Plex+Sans+JP:wght@100..900&display=swap"
         rel="stylesheet">
     <script src="/script.js" defer></script>
+    <script>
+        // 保存されているテーマを取得
+        const theme = localStorage.getItem('theme') || 'light';
+        document.documentElement.dataset.theme = theme;
+    </script>
 </head>
 
 <body>

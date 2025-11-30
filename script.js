@@ -54,13 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const likeButton = likeContainer.querySelector('.like-button');
   const likeCountSpan = likeContainer.querySelector('.like-count');
   
-  // ★ あなたのGAS WebアプリのURLに書き換えてください
   const GAS_URL = "https://script.google.com/macros/s/AKfycbzSWTLAhn9tLjqNLDJqc33pX4ob374oz8Um9PwpCH4hcOBu7kAKlhnPRli3HMuJ_Ya7uw/exec";
 
-  // --- 1. ページ読み込み時に現在のいいね数を取得 ---
   const fetchCurrentLikes = async () => {
     try {
-      // GETリクエストでいいね数を取得
+      // いいね数を取得
       const response = await fetch(`${GAS_URL}?articleId=${articleId}`);
       if (!response.ok) throw new Error('Network response was not ok.');
       
@@ -75,18 +73,21 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // --- 2. ボタンクリック時にいいねを送信 ---
+  let isSending = false; // 送信中フラグ
+
   const handleLikeClick = async () => {
-    // 連打防止のためにボタンを一時的に無効化
+    if (isSending) return; // 送信中なら無視
+    isSending = true;
+
+    // ボタンを無効化＆「送信中…」に変更
     likeButton.disabled = true;
+    const originalText = likeButton.innerHTML;
+    likeButton.innerHTML = '<i class="bi bi-heart"></i> 送信中…';
 
     try {
-      // POSTリクエストでいいねを送信
-      // 【重要】CORSエラーを避けるため、Content-Typeは 'text/plain' を使用します
       const response = await fetch(GAS_URL, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'text/plain',
-        },
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({ articleId: articleId }),
       });
 
@@ -94,16 +95,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const data = await response.json();
       if (data.likeCount !== undefined) {
-        // GASから返された最新のカウント数を表示
         likeCountSpan.textContent = data.likeCount;
-        
-        // 成功したらローカルストレージに記録（連打・複数回防止用）
         localStorage.setItem(`liked_${articleId}`, 'true');
         likeButton.innerHTML = '<i class="bi bi-heart-fill"></i> いいね済み';
       }
     } catch (error) {
       console.error('いいねの送信に失敗:', error);
-      likeButton.disabled = false; // エラー時はボタンを再度有効化
+      // エラー時は元のボタンに戻す
+      likeButton.disabled = false;
+      likeButton.innerHTML = originalText;
+    } finally {
+      isSending = false;
     }
   };
 

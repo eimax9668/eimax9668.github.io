@@ -237,7 +237,7 @@ vertical-align: middle;
     border: none;
 }
 .like-count{
-  padding: 0 10px 0 10px;
+  padding: 0 10px 0;
 }
 .like-button{
   cursor: pointer;
