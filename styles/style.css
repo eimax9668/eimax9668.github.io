@@ -204,3 +204,7 @@ small{
   .article{width:100%;}
   .article-link{font-size:18px;}
 }
+#copylink::before{
+content: "\F470";
+vertical-align: middle;
+}
