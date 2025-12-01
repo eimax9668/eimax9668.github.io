@@ -81,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ボタンを無効化＆「送信中…」に変更
     likeButton.disabled = true;
+    likeButton.style.cursor = 'not-allowed';
     const originalText = likeButton.innerHTML;
     likeButton.innerHTML = '<i class="bi bi-heart"></i> 送信中…';
 
@@ -98,11 +99,13 @@ document.addEventListener('DOMContentLoaded', () => {
         likeCountSpan.textContent = data.likeCount;
         localStorage.setItem(`liked_${articleId}`, 'true');
         likeButton.innerHTML = '<i class="bi bi-heart-fill"></i> いいね済み';
+        likeButton.style.cursor = 'not-allowed';
       }
     } catch (error) {
       console.error('いいねの送信に失敗:', error);
       // エラー時は元のボタンに戻す
       likeButton.disabled = false;
+      likeButton.style.cursor = '';
       likeButton.innerHTML = originalText;
     } finally {
       isSending = false;
@@ -115,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (localStorage.getItem(`liked_${articleId}`) === 'true') {
     likeButton.disabled = true;
     likeButton.innerHTML = '<i class="bi bi-heart-fill"></i> いいね済み';
+    likeButton.style.cursor = 'not-allowed';
   } else {
     // まだいいねしていなければ、クリックイベントを設定
     likeButton.addEventListener('click', handleLikeClick);
