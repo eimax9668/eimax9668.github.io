@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 既にいいね済みかローカルストレージでチェック
   if (localStorage.getItem(`liked_${articleId}`) === 'true') {
     likeButton.disabled = true;
-    likeButton.innerHTML = '<i class="bi bi-suitb-heart-fill "></i> いいね済み';
+    likeButton.innerHTML = '<i class="bi bi-suit-heart-fill "></i> いいね済み';
     likeButton.style.cursor = 'not-allowed';
   } else {
     // まだいいねしていなければ、クリックイベントを設定
