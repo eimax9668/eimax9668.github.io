@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
     likeButton.disabled = true;
     likeButton.style.cursor = 'not-allowed';
     const originalText = likeButton.innerHTML;
-    likeButton.innerHTML = '<i class="bi bi-heart"></i> 送信中…';
+    likeButton.innerHTML = '<i class="bi bi-suit-heart"></i> 送信中…';
 
     try {
       const response = await fetch(GAS_URL, {
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (data.likeCount !== undefined) {
         likeCountSpan.textContent = data.likeCount;
         localStorage.setItem(`liked_${articleId}`, 'true');
-        likeButton.innerHTML = '<i class="bi bi-heart-fill"></i> いいね済み';
+        likeButton.innerHTML = '<i class="bi bi-suit-heart-fill"></i> いいね済み';
         likeButton.style.cursor = 'not-allowed';
       }
     } catch (error) {
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 既にいいね済みかローカルストレージでチェック
   if (localStorage.getItem(`liked_${articleId}`) === 'true') {
     likeButton.disabled = true;
-    likeButton.innerHTML = '<i class="bi bi-heart-fill"></i> いいね済み';
+    likeButton.innerHTML = '<i class="bi bi-suitb-heart-fill "></i> いいね済み';
     likeButton.style.cursor = 'not-allowed';
   } else {
     // まだいいねしていなければ、クリックイベントを設定

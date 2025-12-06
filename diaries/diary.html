@@ -16,7 +16,6 @@
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=IBM+Plex+Sans+JP:wght@100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <script src="/script.js" defer></script>
     <script>
         // 保存されているテーマを取得
         const theme = localStorage.getItem('theme') || 'light';
@@ -25,13 +24,7 @@
 </head>
 
 <body>
-    <header>
-        <a href="/index.html" id="header">ei-max.net</a>
-        <a href="/index.html" id="index-small">Index</a>
-        <a href="/works.html" class="header-links">Works</a>
-        <a href="/profile.html" class="header-links">Profile</a>
-        <a href="/diaries/diary.html" class="header-links">Diary</a>
-    </header>
+    <div id="header"></div>
     <main>
         <h1><span class="marker">Diary</span></h1>
         <p>日記です。たぶん続きません。</p><br>
@@ -45,6 +38,8 @@
         </div>
         <footer><small>©2025 ei-max.net</small><i class="bi bi-brightness-high"></i></footer>
     </main>
+    <script src="/scripts/script.js" defer></script>
+    <script src="/scripts/header.js" defer></script>
 </body>
 
 </html>

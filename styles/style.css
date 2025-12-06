@@ -62,7 +62,7 @@ header {
 }
 
 /* ヘッダー内リンクのスタイル */
-header a:not(#header):not(#index-small) {
+header a:not(#site-title):not(#index-small) {
     position: relative;
     display: inline-block;
     font-weight: bold;
@@ -72,7 +72,7 @@ header a:not(#header):not(#index-small) {
   }
   
 /* ホバー時の背景角丸 */
-header a:not(#header):not(#index-small)::after {
+header a:not(#site-title):not(#index-small)::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -82,13 +82,13 @@ header a:not(#header):not(#index-small)::after {
   z-index: -1;
   transition: opacity 0.3s ease;
 }
-
-header a:not(#header):not(#index-small):hover::after {
+  
+header a:not(#site-title):not(#index-small):hover::after {
   opacity: 1;
 }
 
 /* ロゴのフォント設定 */
-#header {
+#site-title {
   font-size: 30px;
   font-weight: bold;
 }
@@ -195,7 +195,7 @@ small{
 @media (max-width: 700px) {
 
   /* ロゴ切り替え */
-  #header {
+  #site-title {
     display: none;
   }
 
@@ -204,12 +204,12 @@ small{
     font-size: 16px;
   }
 
-  header a:not(#header):not(#index-small) {
+  header a:not(#site-title):not(#index-small) {
     padding: 0.2em 0.5em;
     font-size: 14px;
   }
 
-  header a:not(#header):not(#index-small) {
+  header a:not(#site-title):not(#index-small) {
     padding: 0em 0em 0em 0em;
   }
 
