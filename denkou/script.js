@@ -15,7 +15,7 @@ let paused = false;
 
 // 文字サイズの同期（スライダーと数値入力）
 function setFontSize(px) {
-    px = Math.max(24, Math.min(128, Number(px) || 48));
+    px = Math.max(24, Math.min(256, Number(px) || 48));
     document.documentElement.style.setProperty('--fontSize', px + 'px');
     sizeInput.value = px;
     sizeNumber.value = px;
@@ -109,6 +109,29 @@ document.addEventListener('fullscreenchange', () => {
     }
     recalcAnimation(); // アニメーション再計算
 });
+
+document.addEventListener('fullscreenchange', () => {
+  if (document.fullscreenElement) {
+    // フルスクリーン時は最大値を256に
+    sizeInput.max = 256;
+    sizeNumber.max = 256;
+
+    // 初期値を大きめにしておく（例：120）
+    if (parseInt(sizeInput.value) < 120) {
+      setFontSize(120);
+    }
+  } else {
+    // 通常時は最大値を128に戻す
+    sizeInput.max = 128;
+    sizeNumber.max = 128;
+
+    // 現在の値が128を超えていたら128に戻す
+    if (parseInt(sizeInput.value) > 128) {
+      setFontSize(128);
+    }
+  }
+});
+
 
 const colorInput = document.getElementById('colorInput');
 
