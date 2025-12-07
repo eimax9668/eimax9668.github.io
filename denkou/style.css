@@ -1,0 +1,241 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --fontSize: 48px;
+    /* 初期文字サイズ */
+    --speedPps: 120;
+    /* 初期速度(px/秒) */
+    --duration: 10s;
+    /* 計算で上書き */
+    --gap: 80px;
+    /* 繰り返しの隙間 */
+    --ledColor: #ff3b12;
+    /* LEDの発光色（赤寄り） */
+    --ledGlow: #ffb199;
+    /* 発光の広がり色 */
+    --bgColor: #0c0f12;
+    /* 背景色（暗め） */
+    --dotDim: rgba(255, 255, 255, 0.06);
+    /* 背景ドットの薄い色 */
+    --dotBright: rgba(255, 255, 255, 0.10);
+}
+
+/* ページ全体のスタイル */
+body {
+    margin: 0;
+    background: var(--bgColor);
+    color: #fff;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans JP", sans-serif;
+    display: grid;
+    place-items: center;
+    min-height: 50vh;
+    padding: 24px;
+}
+
+/* コントロールパネル */
+.panel {
+    width: 80%;
+    background: #12161a;
+    border: 1px solid #20262d;
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    display: grid;
+    gap: 12px;
+}
+
+.panel-row {
+    display: grid;
+    grid-template-columns: 130px 1fr 110px;
+    gap: 12px;
+    align-items: center;
+}
+
+.panel-row.short {
+    grid-template-columns: 130px 1fr;
+}
+
+.panel label {
+    color: #aab4c0;
+    font-size: 14px;
+}
+
+.panel input[type="text"] {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #26303a;
+    background: #0e1216;
+    color: #eaf0f6;
+    outline: none;
+}
+
+.panel input[type="text"]::placeholder {
+    color: #7c8a99;
+}
+
+.panel input[type="range"],
+.panel input[type="number"] {
+    width: 100%;
+    accent-color: #ff522e;
+}
+
+.panel input[type="number"] {
+    padding: 8px 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #26303a;
+    background: #0e1216;
+    color: #eaf0f6;
+    outline: none;
+}
+
+.panel button {
+    padding: 10px 14px;
+    line-height: 1.2;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #26303a;
+    background: #15202b;
+    color: #eaf0f6;
+    cursor: pointer;
+    transition: transform 0.05s ease, background 0.15s ease;
+}
+
+.panel button:hover {
+    background: #1a2530;
+}
+
+.panel button:active {
+    transform: translateY(1px);
+}
+
+.panel .note {
+    font-size: 12px;
+    color: #8c9aa8;
+    text-align: right;
+}
+
+/* 掲示板本体 */
+.board {
+    width: 80%;
+    height: 160px;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #222a33;
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.02),
+        0 14px 38px rgba(0, 0, 0, 0.45);
+    background:
+        /* ドットマトリクスの背景（二層のradial-gradientで粒感） */
+        radial-gradient(circle at 8px 8px, var(--dotBright) 1.2px, transparent 1.4px) 0 0 / 16px 16px,
+        radial-gradient(circle at 8px 8px, var(--dotDim) 1.2px, transparent 1.4px) 0 0 / 16px 16px,
+        linear-gradient(#0f1317, #0b0e12);
+}
+
+/* マーキー・トラック（スクロールさせる帯） */
+.marquee {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.track {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gap);
+    will-change: transform;
+    animation: scroll var(--duration) linear infinite;
+}
+
+/* 一時停止時はアニメーション停止 */
+.track.paused {
+    animation-play-state: paused;
+}
+
+/* LED風の文字スタイル */
+.msg {
+    /* 等幅風に見えるよう字間を詰め気味に */
+    letter-spacing: 0.02em;
+    font-weight: 700;
+    font-size: var(--fontSize);
+    line-height: 1;
+    color: var(--ledColor);
+    white-space: nowrap;
+    /* 発光の重ねがけでLED感を演出 */
+    text-shadow:
+        0 0 2px var(--ledColor),
+        0 0 4px var(--ledColor),
+        0 0 8px var(--ledGlow),
+        0 0 14px var(--ledGlow),
+        0 0 22px rgba(255, 59, 18, 0.55);
+    /* 微妙なドット欠け感を加えるマスク（上級者向けチューニング可） */
+    -webkit-mask-image:
+        radial-gradient(circle, #000 55%, transparent 58%);
+    -webkit-mask-size: 6px 6px;
+    -webkit-mask-repeat: repeat;
+    /* 標準のmaskでも動作するブラウザあり */
+    mask-image:
+        radial-gradient(circle, #000 55%, transparent 58%);
+    mask-size: 6px 6px;
+    mask-repeat: repeat;
+    /* ちらつき防止 */
+    filter: saturate(1.2);
+}
+
+/* スクロールのキーフレーム（JSで距離に応じたdurationを設定） */
+@keyframes scroll {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: translate3d(var(--toX, -100%), 0, 0);
+    }
+}
+
+:root {
+    --fontSize: 48px;
+    /* 通常時 */
+}
+
+:fullscreen {
+    --fontSize: 50vh;
+    /* フルスクリーン時は大きく */
+}
+
+:fullscreen .board {
+    background:
+        radial-gradient(circle at 8px 8px, var(--dotBright) 2px, transparent 2.2px) 0 0 / 24px 24px,
+        radial-gradient(circle at 8px 8px, var(--dotDim) 2px, transparent 2.2px) 0 0 / 24px 24px,
+        linear-gradient(#0f1317, #0b0e12);
+}
+
+:fullscreen .msg {
+    -webkit-mask-image:
+        radial-gradient(circle, #000 55%, transparent 58%);
+    -webkit-mask-size: 12px 12px;
+    -webkit-mask-repeat: repeat;
+    /* 標準のmaskでも動作するブラウザあり */
+    mask-image:
+        radial-gradient(circle, #000 55%, transparent 58%);
+    mask-size: 12px 12px;
+    mask-repeat: repeat;
+}
+a{
+    color: #fff;
+    text-decoration: none;
+    margin-top: 30px;
+}
+a:hover{
+    text-decoration: underline;
+}

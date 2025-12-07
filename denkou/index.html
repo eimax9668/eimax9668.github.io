@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>電光掲示板</title>
+    <link rel="stylesheet" href="/denkou/style.css" />
+</head>
+
+<body>
+    <h1>電光掲示板ジェネレーター</h1>
+    <div class="panel" role="group" aria-label="電光掲示板の設定">
+        <div class="panel-row">
+            <label for="textInput">テキスト</label>
+            <input id="textInput" type="text" placeholder="表示したいテキストを入力…" value="電光掲示板風に表示します。">
+            <button id="applyBtn" type="button">反映</button>
+        </div>
+        <div class="panel-row">
+            <label for="sizeInput">文字サイズ</label>
+            <input id="sizeInput" type="range" min="24" max="128" step="1" value="48">
+            <input id="sizeNumber" type="number" min="24" max="128" step="1" value="48">
+        </div>
+
+        <div class="panel-row short">
+            <label for="speedInput">スピード</label>
+            <input id="speedInput" type="range" min="40" max="400" step="5" value="120">
+        </div>
+        <div class="note">速度はピクセル/秒（小さくするとゆっくり、 大きくすると速く）</div>
+        <div class="panel-row short">
+            <label for="colorInput">文字色</label>
+            <input id="colorInput" type="color" value="#ff3b12">
+        </div>
+        <div class="panel-row short">
+            <label>操作</label>
+            <button id="pauseBtn" type="button">一時停止</button>
+        </div>
+        <div class="panel-row short">
+            <label>表示</label>
+            <button id="fullscreenBtn" type="button">フルスクリーン</button>
+        </div>
+
+    </div>
+    <div class="board" id="board">
+        <div class="marquee">
+            <!-- 連続スクロール用に2つ並べる -->
+            <div class="track" id="track">
+                <div class="msg" id="msg1">電光掲示板風に表示します。</div>
+                <div class="msg" id="msg2">電光掲示板風に表示します。</div>
+            </div>
+        </div>
+    </div>
+    <a href="/works.html">&lt; 戻る</a>
+    <script src="/denkou/script.js"></script>
+</body>
+
+</html>
