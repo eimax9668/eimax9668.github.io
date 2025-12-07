@@ -89,16 +89,14 @@ applyText();
 window.addEventListener('load', recalcAnimation);
 
 // フルスクリーン切り替え
-const fullscreenBtn = document.getElementById('fullscreenBtn');
 fullscreenBtn.addEventListener('click', () => {
-    if (!document.fullscreenElement) {
-        board.requestFullscreen().catch(err => {
-            alert(`フルスクリーンにできません: ${err.message}`);
-        });
-    } else {
-        document.exitFullscreen();
-        fullscreenBtn.textContent = 'フルスクリーン';
-    }
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen(); // ページ全体をフルスクリーン
+    fullscreenBtn.textContent = '終了';
+  } else {
+    document.exitFullscreen();
+    fullscreenBtn.textContent = 'フルスクリーン';
+  }
 });
 
 document.addEventListener('fullscreenchange', () => {
