@@ -1,0 +1,57 @@
+<!DOCTYPE html class="light">
+<html lang="ja">
+
+<head prefix="og: https://ogp.me/ns#">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最近つくったもの - ei-max.net</title>
+    <meta name="description" content="私は誰か、何をしているのか、そして思ったことを書く">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://ei-max.net/diaries/20251208.html" />
+    <meta property="og:title" content="最近つくったもの - ei-max.net" />
+    <meta property="og:description" content="私は誰か、何をしているのか、そして思ったことを書く" />
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=IBM+Plex+Sans+JP:wght@100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script>
+        // 保存されているテーマを取得
+        const theme = localStorage.getItem('theme') || 'light';
+        document.documentElement.dataset.theme = theme;
+    </script>
+</head>
+
+<body>
+    <div id="header"></div>
+    <main>
+        <article>
+            <h1 class="blog_h1">最近つくったもの</h1>
+            <h2 class="blog_h2"><time datetime="2025-12-08">2025年12月8日</time></h2>
+            <p>最近つくったものを紹介します。</p>
+            <h3>いいねボタン</h3>
+            <p>いいねボタン実装しました。一人一回までです。Google Apps ScriptとJavaScriptを使っています。当初いいねボタンは通常のハートマークでしたが、あとで「トランプの」ハートに変更しました。
+                本来の使い方ではないね。<br>あと、いいねボタン押してね。(宣伝)<br>XやBlueskyへのシェアボタンの追加も検討しましたが、誰も使わない気がしたので、今回は見送りました。</p>
+            <h3>電光掲示板ジェネレーター</h3>
+            <p>好きな文字列を巨大な文字で表示するサイトがあるんですけど、それが「電工掲示板」だったら面白いのではないか？と思い作りました。変な理由だね。<br>
+            文字の色、文字のサイズ、動くスピードが変更できます。しかもフルスクリーンに対応しています。いつ使えばいいのかは不明ですが使ってみてね。(スマホ非対応です。すいません)<br>
+        URL : <a href="/denkou/index.html" class="links">/denkou/index.html</a></p>
+        </article>
+        <span class="spacer2"></span>
+        <div class="blog_menu">
+            <a href="javascript:copyLink()" class="links" id="copylink">リンクをコピー</a>
+            <div class="like-container" data-article-id="post-2025-12-08">
+                <button class="like-button" aria-label="いいねボタン"><i class="bi bi-suit-heart"></i> いいね</button>
+                <span class="like-count"> </span>
+
+            </div>
+        </div>
+        <footer><small>©2025 ei-max.net</small><i class="bi bi-brightness-high" role="button" tabindex="0" aria-label="テーマ切り替えボタン" title="テーマ切り替えボタン"></i></footer>
+    </main>
+    <script src="/scripts/script.js" defer></script>
+    <script src="/scripts/header.js" defer></script>
+</body>
+
+</html>
