@@ -1,0 +1,22 @@
+:root{
+    --digit-color: rgb(255, 123, 0); /* 緑色のLED風 */
+}
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #222;
+    margin: 0;
+    font-family: 'Space Grotesk', monospace; /* 7セグメント風フォント */
+    font-feature-settings: "tnum";
+}
+
+.countdown-digit {
+    font-family: 'Space Grotesk', monospace; /* 7セグメント風フォント */
+    font-size: 20vw; /* 画面幅の20% */
+    color: var(--digit-color); /* 緑色のLED風 */
+    text-shadow: 0 0 5px var(--digit-color), 0 0 15px var(--digit-color), 0 0 25px var(--digit-color); /* ネオン効果 */
+    padding: 0 10px;
+    background-color: #333; /* 背景を暗くして数字を際立たせる */
+}
