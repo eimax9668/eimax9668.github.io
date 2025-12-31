@@ -167,22 +167,39 @@ class PongGame {
   }
   
   setupEventListeners() {
-    document.addEventListener('keydown', (e) => {
+    // イベントハンドラを保存して削除可能にする
+    this.handleKeyDown = (e) => {
       this.keys[e.key] = true;
-    });
+    };
     
-    document.addEventListener('keyup', (e) => {
+    this.handleKeyUp = (e) => {
       this.keys[e.key] = false;
-    });
+    };
     
-    // マウス移動でパドルを動かす
-    document.addEventListener('mousemove', (e) => {
+    this.handleMouseMove = (e) => {
       this.paddleX = e.clientX - this.paddleWidth / 2;
       if (this.paddleX < 0) this.paddleX = 0;
       if (this.paddleX > this.width - this.paddleWidth) {
         this.paddleX = this.width - this.paddleWidth;
       }
-    });
+    };
+
+    // タッチ操作対応
+    this.handleTouch = (e) => {
+      e.preventDefault(); // スクロール防止
+      const touch = e.touches[0];
+      this.paddleX = touch.clientX - this.paddleWidth / 2;
+      if (this.paddleX < 0) this.paddleX = 0;
+      if (this.paddleX > this.width - this.paddleWidth) {
+        this.paddleX = this.width - this.paddleWidth;
+      }
+    };
+
+    document.addEventListener('keydown', this.handleKeyDown);
+    document.addEventListener('keyup', this.handleKeyUp);
+    document.addEventListener('mousemove', this.handleMouseMove);
+    this.canvas.addEventListener('touchstart', this.handleTouch, { passive: false });
+    this.canvas.addEventListener('touchmove', this.handleTouch, { passive: false });
   }
   
   update() {
@@ -341,6 +358,14 @@ class PongGame {
   
   stop() {
     pongGame = null;
+    
+    // イベントリスナーを削除
+    document.removeEventListener('keydown', this.handleKeyDown);
+    document.removeEventListener('keyup', this.handleKeyUp);
+    document.removeEventListener('mousemove', this.handleMouseMove);
+    this.canvas.removeEventListener('touchstart', this.handleTouch);
+    this.canvas.removeEventListener('touchmove', this.handleTouch);
+
     if (pongAnimationId) {
       cancelAnimationFrame(pongAnimationId);
       pongAnimationId = null;

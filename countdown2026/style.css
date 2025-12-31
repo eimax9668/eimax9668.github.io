@@ -15,6 +15,11 @@ body {
     position: relative;
     overflow: hidden;
     transition: 0.3s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
 }
 
 #particles-canvas {
@@ -51,11 +56,15 @@ body {
 #game-start-countdown {
     position: fixed;
     top: 15%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    left: 0;
+    width: 100%;
     z-index: 103;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     font-family: 'Space Grotesk', monospace;
-    font-size: clamp(30px, 5vw, 100px);
+    font-size: clamp(30px, 2vw, 100px);
     font-weight: bold;
     color: var(--digit-color);
     text-shadow: 0 0 20px var(--digit-color), 0 0 40px var(--digit-color), 0 0 60px var(--digit-color);
@@ -67,11 +76,11 @@ body {
 
 @keyframes gameCountdownPulse {
     0%, 100% {
-        transform: translate(-50%, -50%) scale(1);
+        transform: scale(1);
         opacity: 1;
     }
     50% {
-        transform: translate(-50%, -50%) scale(1.2);
+        transform: scale(1.2);
         opacity: 0.9;
     }
 }
@@ -90,9 +99,10 @@ body {
 .countdown-wrapper {
     display: flex;
     gap: 20px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
+    
 }
 
 .time-unit {
@@ -110,7 +120,7 @@ body {
 
 .countdown-digit {
     font-family: 'Space Grotesk', monospace;
-    font-size: clamp(40px, 12vw, 200px);
+    font-size: clamp(20px, 8vw, 200px);
     color: var(--digit-color);
     text-shadow: 0 0 5px var(--digit-color), 0 0 15px var(--digit-color), 0 0 25px var(--digit-color);
     padding: 20px 30px;
@@ -123,7 +133,11 @@ body {
     transition: transform 0.3s ease;
     position: relative;
     overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     user-select: none;
+    -webkit-touch-callout: none;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     transition: 0.3s;
 }
@@ -224,8 +238,8 @@ body[data-theme="cyan"] {
     }
     
     .countdown-digit {
-        font-size: clamp(30px, 10vw, 150px);
-        padding: 15px 20px;
+        font-size: clamp(15px, 12vw, 150px);
+        padding: 15px;
         min-width: 80px;
     }
     
