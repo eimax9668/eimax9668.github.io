@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Transition API Demo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="./style.css">
+<script src="./script.js"></script>
+</head>
+<body>
+    <main>
+       <section id="page1">
+    <h1 id="title1">ページ１</h1>
+    <h2 id="title2">概要</h2>
+    <p>View Transitions APIとは、Webページの画面遷移やDOMの状態変化を、
+    まるでネイティブアプリのようにスムーズで視覚的に連続性のあるアニメーションで表現するためのブラウザ標準APIです。</p>
+    <div class="nav-buttons">
+        <button class="to-page1">１</button>
+        <button class="to-page2">２</button>
+        <button class="to-page3">３</button>
+    </div>
+    <a href="/works.html">＜ 戻る</a>
+  </section>
+  <section id="page2" hidden>
+    <h1 id="title3">ページ２</h1>
+    <h2 id="title4">対応ブラウザ</h2>
+    <p>View Transitions APIの対応ブラウザは2026年1月現在、Chrome/Edge 111以上（SPA用）、Chrome/Edge 126以上（MPA用）が安定対応です
+        。Safari 18以上、Firefox 144以上もSPAで対応が進んでいます。</p>
+    <div class="nav-buttons">
+        <button class="to-page1">１</button>
+        <button class="to-page2">２</button>
+        <button class="to-page3">３</button>
+    </div>
+    <a href="/works.html">＜ 戻る</a>
+  </section>
+  <section id="page3" hidden>
+    <h1 id="title5">ページ３</h1>
+    <h2 id="title6">主な特徴とメリット</h2>
+    <ul>
+        <li>ブラウザ標準機能</li>
+        <p> 外部ライブラリに依存せず、ブラウザが直接アニメーションを処理します。</p>
+        <li>SPA・MPA対応</li>
+        <p>ページ全体のリロードなしで動作するSPA、および従来のページ遷移が発生するMPAのどちらにも適用可能です。</p>
+        <li>高いパフォーマンス</li>
+        <p>ブラウザネイティブの機能で実行されるため、高速で滑らかなアニメーションが期待できます。</p>
+    </ul>
+ 
+    <div class="nav-buttons">
+        <button class="to-page1">１</button>
+        <button class="to-page2">２</button>
+        <button class="to-page3">３</button>
+    </div>
+    <a href="/works.html">＜ 戻る</a>
+  </section>  
+    </main>
+
+</body>
+</html>
