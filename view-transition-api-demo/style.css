@@ -12,6 +12,7 @@
     height: 100%;
     overflow: hidden;
     color: #333;
+    font-family:"Inter","IBM Plex Sans JP";
   }
 
   #page1, #page2, #page3{
