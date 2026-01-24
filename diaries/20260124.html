@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head prefix="og: https://ogp.me/ns#">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英検2級 - ei-max.net</title>
+    <meta name="description" content="私は誰か、何をしているのか、そして思ったことを書く">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://ei-max.net/diaries/20251229.html" />
+    <meta property="og:title" content="英検2級 - ei-max.net" />
+    <meta property="og:description" content="私は誰か、何をしているのか、そして思ったことを書く" />
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=IBM+Plex+Sans+JP:wght@100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script>
+        // 保存されているテーマを取得
+        const theme = localStorage.getItem('theme') || 'light';
+        document.documentElement.dataset.theme = theme;
+    </script>
+</head>
+
+<body>
+    <div id="header"></div>
+    <main>
+        <article>
+            <h1 class="blog_h1">思考ツールCardKnotを作った</h1>
+            <h2 class="blog_h2"><time datetime="2026-01-24">2026年1月24日</time></h2>
+            <h3>CardKnotとは？</h3>
+            <p>CardKnotは、無限のキャンバスでアイデアを整理し、直感的につなぎ合わせることができる思考整理ツールです。無料で使うことができます。</p>
+            <h3>作ろうと思った理由</h3>
+            <p>急に作りたくなったため。</p>
+            <h3>得た学び</h3>
+            <p>・リリースノートを書くこと<br>　何が進化して何を修正したか説明する能力が求められる。</p>
+            <p>・バージョニング<br>　セマンティック バージョニング2.0.0とやらを使った。</p>
+            <p>・思いついたことはすぐIssueに書くこと<br>　人間は忘れる生き物なのでそうした方がいい。</p>
+</article>
+        <div class="blog_menu">
+            <a href="javascript:copyLink()" class="links" id="copylink">リンクをコピー</a>
+            <div class="like-container" data-article-id="post-2025-01-24">
+                <button class="like-button" aria-label="いいねボタン"><i class="bi bi-suit-heart"></i> いいね</button>
+                <span class="like-count"> </span>
+            </div>
+        </div>
+        <footer><small>©2025 ei-max.net</small><i class="bi bi-brightness-high" role="button" tabindex="0" aria-label="テーマ切り替えボタン" title="テーマ切り替えボタン"></i></footer>
+    </main>
+    <script src="/scripts/script.js" defer></script>
+    <script src="/scripts/header.js" defer></script>
+</body>
+
+</html>
