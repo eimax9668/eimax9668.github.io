@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TypeSpark - タイピングを魔法のように彩る</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@100;200;300;400;500;600;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', "IBM Plex Sans JP", sans-serif;
+            background: linear-gradient(135deg, #0c653d 0%, #1b6f49 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            letter-spacing: -0.02em;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 2rem;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .demo-box {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .demo-text {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .typing-demo {
+            font-family: 'Courier New', monospace;
+            font-size: 1.3rem;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: left;
+            line-height: 1.8;
+            min-height: 100px;
+            position: relative;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.3rem;
+            background: #19b03f;
+            animation: blink 1s infinite;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+
+            0%,
+            50% {
+                opacity: 1;
+            }
+
+            51%,
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .cta-buttons {
+            margin-top: 3rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #1b6f49;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .features {
+            background: white;
+            padding: 5rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #2d3748;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #f6f8fb 0%, #ffffff 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2d3748;
+        }
+
+        .feature-desc {
+            color: #718096;
+            line-height: 1.6;
+        }
+
+        .specs {
+            background: linear-gradient(0deg, #27845a 0%, #2aab71 100%);
+            padding: 5rem 2rem;
+            color: white;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .spec-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .spec-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .spec-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .download {
+            background: #f7fafc;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .platform-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .platform-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            border: 2px solid #e2e8f0;
+            text-decoration: none;
+            color: #2d3748;
+            transition: all 0.3s ease;
+            min-width: 200px;
+        }
+
+        .platform-btn:hover {
+            border-color: #19b03f;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .platform-icon {
+            font-size: 3rem;
+        }
+
+        .platform-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+
+            .tagline {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger delays */
+        .features-grid .feature-card:nth-child(1) {
+            transition-delay: 0s;
+        }
+
+        .features-grid .feature-card:nth-child(2) {
+            transition-delay: 0.1s;
+        }
+
+        .features-grid .feature-card:nth-child(3) {
+            transition-delay: 0.2s;
+        }
+
+        .features-grid .feature-card:nth-child(4) {
+            transition-delay: 0.3s;
+        }
+
+        .features-grid .feature-card:nth-child(5) {
+            transition-delay: 0.4s;
+        }
+
+        .features-grid .feature-card:nth-child(6) {
+            transition-delay: 0.5s;
+        }
+
+        .specs-grid .spec-item:nth-child(1) {
+            transition-delay: 0s;
+        }
+
+        .specs-grid .spec-item:nth-child(2) {
+            transition-delay: 0.1s;
+        }
+
+        .specs-grid .spec-item:nth-child(3) {
+            transition-delay: 0.2s;
+        }
+
+        .specs-grid .spec-item:nth-child(4) {
+            transition-delay: 0.3s;
+        }
+
+        /* Language Switcher */
+        .lang-switch {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 100;
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .lang-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+    </style>
+</head>
+
+<body>
+    <section class="hero">
+        <div class="lang-switch">
+            <button class="lang-btn" id="langToggle">EN</button>
+        </div>
+        <div class="hero-content animate-on-scroll">
+            <h1 class="logo">TypeSpark</h1>
+            <p class="tagline" data-i18n="tagline">
+                あなたのタイピングを視覚と音で彩る<br>
+                デスクトップアクセサリー
+            </p>
+
+        </div>
+
+        <div class="cta-buttons">
+            <a href="https://github.com/eimax9668/TypeSpark/releases" class="btn btn-primary" data-i18n="downloadBtn">
+                <i class="bi bi-download"></i> ダウンロード
+            </a>
+            <a href="https://github.com/eimax9668/TypeSpark" class="btn btn-secondary">
+                GitHub
+            </a>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll" data-i18n="featuresTitle"><i class="bi bi-stars"></i> 主な機能</h2>
+
+            <div class="features-grid">
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon"><i class="bi bi-palette-fill"></i></div>
+                    <h3 class="feature-title" data-i18n="f1Title">美しいパーティクル</h3>
+                    <p class="feature-desc" data-i18n="f1Desc">
+                        円、四角、星など、多彩な形状から選択可能。カラーテーマはランダム、Fire、Ice、Neonの4種類。
+                    </p>
+                </div>
+
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon"><i class="bi bi-volume-up-fill"></i></div>
+                    <h3 class="feature-title" data-i18n="f2Title">リアルなサウンド</h3>
+                    <p class="feature-desc" data-i18n="f2Desc">
+                        Synth（電子音）、Mechanical（メカニカル音）、Popcorn（ポップ音）の3種類。エコー効果も追加可能。
+                    </p>
+                </div>
+
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+                    <h3 class="feature-title" data-i18n="f3Title">物理演算</h3>
+                    <p class="feature-desc" data-i18n="f3Desc">
+                        重力、画面端での跳ね返り、散らばり強度の調整が可能。リアルな物理演算でパーティクルが踊ります。
+                    </p>
+                </div>
+
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon"><i class="bi bi-bullseye"></i></div>
+                    <h3 class="feature-title" data-i18n="f4Title">コンボ & WPM</h3>
+                    <p class="feature-desc" data-i18n="f4Desc">
+                        連続入力でコンボカウンターが上昇。WPM（1分あたりの入力単語数）もリアルタイム表示。
+                    </p>
+                </div>
+
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon"><i class="bi bi-cursor-fill"></i></div>
+                    <h3 class="feature-title" data-i18n="f5Title">マウス連動</h3>
+                    <p class="feature-desc" data-i18n="f5Desc">
+                        マウスカーソルの位置からパーティクルを発生させることも可能。より直感的なビジュアル体験を。
+                    </p>
+                </div>
+
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon"><i class="bi bi-sliders"></i></div>
+                    <h3 class="feature-title" data-i18n="f6Title">高度なカスタマイズ</h3>
+                    <p class="feature-desc" data-i18n="f6Desc">
+                        Screen Shake、Bloom効果、パーティクル延命機能など、細かな演出を自由に調整できます。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="specs">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll" style="color: #fff;" data-i18n="specsTitle"><i
+                    class="bi bi-gear-fill"></i> 技術仕様</h2>
+
+            <div class="specs-grid">
+                <div class="spec-item animate-on-scroll">
+                    <div class="spec-label" data-i18n="specLabel1">フレームワーク</div>
+                    <div class="spec-value">Electron 40</div>
+                </div>
+                <div class="spec-item animate-on-scroll">
+                    <div class="spec-label" data-i18n="specLabel2">キーフック</div>
+                    <div class="spec-value">uiohook-napi</div>
+                </div>
+                <div class="spec-item animate-on-scroll">
+                    <div class="spec-label" data-i18n="specLabel3">レンダリング</div>
+                    <div class="spec-value">HTML5 Canvas</div>
+                </div>
+                <div class="spec-item animate-on-scroll">
+                    <div class="spec-label" data-i18n="specLabel4">サウンド</div>
+                    <div class="spec-value">Web Audio API</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="download">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll" data-i18n="downloadSectionTitle">ダウンロード</h2>
+            <p style="color: #718096; font-size: 1.1rem; margin-bottom: 2rem;" data-i18n="downloadDesc">
+                お使いのプラットフォームを選択してダウンロード
+            </p>
+
+            <div class="platform-buttons animate-on-scroll">
+                <a href="https://github.com/eimax9668/TypeSpark/releases" class="platform-btn">
+                    <div class="platform-icon"><i class="bi bi-apple"></i></div>
+                    <div class="platform-name">macOS</div>
+                    <div style="font-size: 0.9rem; color: #718096;">DMG</div>
+                </a>
+
+                <a href="https://github.com/eimax9668/TypeSpark/releases" class="platform-btn">
+                    <div class="platform-icon"><i class="bi bi-windows"></i></div>
+                    <div class="platform-name">Windows</div>
+                    <div style="font-size: 0.9rem; color: #718096;">EXE</div>
+                </a>
+            </div>
+
+            <p style="color: #718096; margin-top: 2rem; font-size: 0.95rem;" data-i18n="securityNote">
+                <i class="bi bi-lightbulb"></i> 初回起動時にセキュリティ警告が表示される場合があります<br>
+                詳しくは<a href="https://github.com/eimax9668/TypeSpark#readme" style="color: #667eea;">README</a>をご確認ください
+            </p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="https://github.com/eimax9668/TypeSpark" class="footer-link">GitHub</a>
+            <a href="https://github.com/eimax9668/TypeSpark/releases" class="footer-link">Releases</a>
+            <a href="https://github.com/eimax9668/TypeSpark/issues" class="footer-link">Issues</a>
+            <a href="https://github.com/eimax9668" class="footer-link">Developer</a>
+        </div>
+        <p style="opacity: 0.8;">
+            Created with <i class="bi bi-suit-heart-fill"></i> by <strong>eimax9668</strong>
+        </p>
+        <p style="opacity: 0.6; margin-top: 1rem; font-size: 0.9rem;">
+            © 2026 TypeSpark
+        </p>
+    </footer>
+
+    <script>
+        function createParticle() {
+            const hero = document.querySelector('.hero');
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+
+            const colors = ['#0c653d', '#1b6f49', '#27845a', '#2aab71'];
+            particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 3 + 's';
+
+            hero.appendChild(particle);
+
+            setTimeout(() => particle.remove(), 3000);
+        }
+
+        // Create particles periodically
+        setInterval(createParticle, 500);
+
+        // --- TypeSpark Web Demo (Green Particles) ---
+        (function () {
+            const canvas = document.createElement('canvas');
+            canvas.style.position = 'fixed';
+            canvas.style.top = '0';
+            canvas.style.left = '0';
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            canvas.style.pointerEvents = 'none';
+            canvas.style.zIndex = '9999';
+            document.body.appendChild(canvas);
+
+            const ctx = canvas.getContext('2d');
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            const particles = [];
+
+            class Particle {
+                constructor(x, y) {
+                    this.x = x;
+                    this.y = y;
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = Math.random() * 3 + 2;
+                    this.vx = Math.cos(angle) * speed;
+                    this.vy = Math.sin(angle) * speed;
+                    this.life = 1.0;
+                    this.size = 5 * (0.5 + Math.random());
+                    // Green theme colors (Hue ~140)
+                    const hue = 130 + Math.random() * 30;
+                    this.color = `hsl(${hue}, 100%, 15%)`;
+                }
+
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    this.life -= 0.02;
+                    this.size *= 0.95;
+                }
+
+                draw(ctx) {
+                    ctx.globalAlpha = this.life;
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    const p = particles[i];
+                    p.update();
+                    p.draw(ctx);
+                    if (p.life <= 0) particles.splice(i, 1);
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+
+            // --- Sound Logic (Popcorn) ---
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+            function unlockAudio() {
+                if (audioCtx.state !== 'running') {
+                    audioCtx.resume();
+                }
+            }
+            document.addEventListener('click', unlockAudio, { once: true });
+            document.addEventListener('keydown', unlockAudio, { once: true });
+
+            function playPopSound() {
+                if (audioCtx.state !== 'running') return;
+
+                const now = audioCtx.currentTime;
+                const source = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+
+                source.type = 'sine';
+                const freq = 500 + Math.random() * 200;
+                source.frequency.setValueAtTime(freq, now);
+                source.frequency.exponentialRampToValueAtTime(freq * 0.5, now + 0.12);
+
+                gainNode.gain.setValueAtTime(0.3, now);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.12);
+
+                source.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+
+                source.start(now);
+                source.stop(now + 0.14);
+            }
+
+            document.addEventListener('keydown', () => {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                for (let i = 0; i < 10; i++) {
+                    particles.push(new Particle(x, y));
+                }
+                playPopSound();
+            });
+
+            // Scroll Animation Observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+            // --- Language Switcher Logic ---
+            const translations = {
+                ja: {
+                    tagline: 'あなたのタイピングを視覚と音で彩る<br>デスクトップアクセサリー',
+                    downloadBtn: 'ダウンロード',
+                    featuresTitle: '主な機能',
+                    f1Title: '美しいパーティクル',
+                    f1Desc: '円、四角、星など、多彩な形状から選択可能。カラーテーマはランダム、Fire、Ice、Neonの4種類。',
+                    f2Title: 'リアルなサウンド',
+                    f2Desc: 'Synth（電子音）、Mechanical（メカニカル音）、Popcorn（ポップ音）の3種類。エコー効果も追加可能。',
+                    f3Title: '物理演算',
+                    f3Desc: '重力、画面端での跳ね返り、散らばり強度の調整が可能。リアルな物理演算でパーティクルが踊ります。',
+                    f4Title: 'コンボ & WPM',
+                    f4Desc: '連続入力でコンボカウンターが上昇。WPM（1分あたりの入力単語数）もリアルタイム表示。',
+                    f5Title: 'マウス連動',
+                    f5Desc: 'マウスカーソルの位置からパーティクルを発生させることも可能。より直感的なビジュアル体験を。',
+                    f6Title: '高度なカスタマイズ',
+                    f6Desc: 'Screen Shake、Bloom効果、パーティクル延命機能など、細かな演出を自由に調整できます。',
+                    specsTitle: '技術仕様',
+                    specLabel1: 'フレームワーク',
+                    specLabel2: 'キーフック',
+                    specLabel3: 'レンダリング',
+                    specLabel4: 'サウンド',
+                    downloadSectionTitle: 'ダウンロード',
+                    downloadDesc: 'お使いのプラットフォームを選択してダウンロード',
+                    securityNote: '<i class="bi bi-lightbulb"></i> 初回起動時にセキュリティ警告が表示される場合があります<br>詳しくは<a href="https://github.com/eimax9668/TypeSpark#readme" style="color: #667eea;">README</a>をご確認ください'
+                },
+                en: {
+                    tagline: 'A desktop accessory that colors your typing<br>with visuals and sound.',
+                    downloadBtn: 'Download',
+                    featuresTitle: 'Key Features',
+                    f1Title: 'Beautiful Particles',
+                    f1Desc: 'Choose from circles, squares, stars, and more. 4 color themes: Random, Fire, Ice, and Neon.',
+                    f2Title: 'Realistic Sound',
+                    f2Desc: '3 types: Synth, Mechanical, and Popcorn. Echo effects can also be added.',
+                    f3Title: 'Physics Simulation',
+                    f3Desc: 'Adjust gravity, screen edge bouncing, and scatter intensity. Particles dance with realistic physics.',
+                    f4Title: 'Combo & WPM',
+                    f4Desc: 'Combo counter rises with continuous input. Real-time WPM (Words Per Minute) display.',
+                    f5Title: 'Mouse Interaction',
+                    f5Desc: 'Generate particles from the mouse cursor position for a more intuitive visual experience.',
+                    f6Title: 'Advanced Customization',
+                    f6Desc: 'Freely adjust details like Screen Shake, Bloom effects, and particle lifespan.',
+                    specsTitle: 'Technical Specs',
+                    specLabel1: 'Framework',
+                    specLabel2: 'Key Hook',
+                    specLabel3: 'Rendering',
+                    specLabel4: 'Sound',
+                    downloadSectionTitle: 'Download',
+                    downloadDesc: 'Select your platform to download',
+                    securityNote: '<i class="bi bi-lightbulb"></i> Security warning may appear on first launch<br>Please check <a href="https://github.com/eimax9668/TypeSpark#readme" style="color: #667eea;">README</a> for details'
+                }
+            };
+
+            const langToggle = document.getElementById('langToggle');
+            let currentLang = localStorage.getItem('typespark_lang') || 'ja';
+
+            function updateLanguage(lang) {
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (translations[lang][key]) {
+                        el.innerHTML = translations[lang][key];
+                    }
+                });
+                langToggle.textContent = lang === 'ja' ? 'JP' : 'EN';
+                localStorage.setItem('typespark_lang', lang);
+                currentLang = lang;
+            }
+
+            // Initialize
+            updateLanguage(currentLang);
+
+            langToggle.addEventListener('click', () => {
+                const newLang = currentLang === 'ja' ? 'en' : 'ja';
+                updateLanguage(newLang);
+            });
+        })();
+    </script>
+</body>
+
+</html>
