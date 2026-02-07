@@ -413,6 +413,8 @@
             top: 1.5rem;
             right: 1.5rem;
             z-index: 100;
+            display: flex;
+            gap: 0.5rem;
         }
 
         .lang-btn {
@@ -437,6 +439,7 @@
 <body>
     <section class="hero">
         <div class="lang-switch">
+            <button class="lang-btn" id="soundToggle"><i class="bi bi-volume-mute-fill"></i></button>
             <button class="lang-btn" id="langToggle">EN</button>
         </div>
         <div class="hero-content animate-on-scroll">
@@ -631,7 +634,7 @@
                     this.x = x;
                     this.y = y;
                     const angle = Math.random() * Math.PI * 2;
-                    const speed = Math.random() * 3 + 2;
+                    const speed = Math.random() * 5 + 2;
                     this.vx = Math.cos(angle) * speed;
                     this.vy = Math.sin(angle) * speed;
                     this.life = 1.0;
@@ -644,8 +647,11 @@
                 update() {
                     this.x += this.vx;
                     this.y += this.vy;
-                    this.life -= 0.02;
-                    this.size *= 0.95;
+                    this.vy += 0.15; // Gravity
+                    this.vx *= 0.96; // Friction
+                    this.vy *= 0.96; // Friction
+                    this.life -= 0.015;
+                    this.size *= 0.96;
                 }
 
                 draw(ctx) {
@@ -671,16 +677,21 @@
 
             // --- Sound Logic (Popcorn) ---
             const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            let isSoundEnabled = false;
+            const soundToggle = document.getElementById('soundToggle');
 
-            function unlockAudio() {
-                if (audioCtx.state !== 'running') {
-                    audioCtx.resume();
+            soundToggle.addEventListener('click', () => {
+                isSoundEnabled = !isSoundEnabled;
+                if (isSoundEnabled) {
+                    if (audioCtx.state !== 'running') audioCtx.resume();
+                    soundToggle.innerHTML = '<i class="bi bi-volume-up-fill"></i>';
+                } else {
+                    soundToggle.innerHTML = '<i class="bi bi-volume-mute-fill"></i>';
                 }
-            }
-            document.addEventListener('click', unlockAudio, { once: true });
-            document.addEventListener('keydown', unlockAudio, { once: true });
+            });
 
             function playPopSound() {
+                if (!isSoundEnabled) return;
                 if (audioCtx.state !== 'running') return;
 
                 const now = audioCtx.currentTime;
