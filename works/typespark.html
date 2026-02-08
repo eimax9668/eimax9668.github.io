@@ -342,7 +342,7 @@
             }
 
             .tagline {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
 
             .section-title {
@@ -421,17 +421,40 @@
             background: rgba(255, 255, 255, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.4);
             color: white;
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 1.9rem;
             border-radius: 20px;
             cursor: pointer;
             font-weight: 600;
             backdrop-filter: blur(5px);
             transition: all 0.3s ease;
             font-family: inherit;
+            font-size: large;
         }
 
         .lang-btn:hover {
             background: rgba(255, 255, 255, 0.4);
+        }
+        #sparkTouchBtn {
+            display: none;
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10000;
+            width: 80px;
+            height: 80px;
+            /* border-radius: 5%; */
+            background: white;
+            color: #1b6f49;
+            border: none;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            font-size: 2rem;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: transform 0.1s ease;
+        }
+        #sparkTouchBtn:active {
+            transform: translateX(-50%) scale(0.92);
         }
     </style>
 </head>
@@ -448,6 +471,8 @@
                 あなたのタイピングを視覚と音で彩る<br>
                 デスクトップアクセサリー
             </p>
+            <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: -1rem;"
+                data-i18n="soundRecommend"><i class="bi bi-volume-up"></i> 音声をONにしてお楽しみください</p>
 
         </div>
 
@@ -460,6 +485,8 @@
             </a>
         </div>
     </section>
+
+    <button id="sparkTouchBtn"><i class="bi bi-lightning-fill"></i></button>
 
     <section class="features">
         <div class="container">
@@ -557,16 +584,16 @@
                     <div style="font-size: 0.9rem; color: #718096;">DMG</div>
                 </a>
 
-                <a href="https://github.com/eimax9668/TypeSpark/releases" class="platform-btn">
+                <div class="platform-btn" style="opacity: 0.6; cursor: not-allowed;">
                     <div class="platform-icon"><i class="bi bi-windows"></i></div>
                     <div class="platform-name">Windows</div>
-                    <div style="font-size: 0.9rem; color: #718096;">EXE</div>
-                </a>
+                    <div style="font-size: 0.9rem; color: #718096;" data-i18n="comingSoon">準備中</div>
+                </div>
             </div>
 
             <p style="color: #718096; margin-top: 2rem; font-size: 0.95rem;" data-i18n="securityNote">
                 <i class="bi bi-lightbulb"></i> 初回起動時にセキュリティ警告が表示される場合があります<br>
-                詳しくは<a href="https://github.com/eimax9668/TypeSpark#readme" style="color: #667eea;">README</a>をご確認ください
+                詳しくは<a href="https://github.com/eimax9668/TypeSpark#readme" style="color: #19b03f;">README</a>をご確認ください
             </p>
         </div>
     </section>
@@ -587,25 +614,6 @@
     </footer>
 
     <script>
-        function createParticle() {
-            const hero = document.querySelector('.hero');
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-
-            const colors = ['#0c653d', '#1b6f49', '#27845a', '#2aab71'];
-            particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.top = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 3 + 's';
-
-            hero.appendChild(particle);
-
-            setTimeout(() => particle.remove(), 3000);
-        }
-
-        // Create particles periodically
-        setInterval(createParticle, 500);
-
         // --- TypeSpark Web Demo (Green Particles) ---
         (function () {
             const canvas = document.createElement('canvas');
@@ -713,14 +721,27 @@
                 source.stop(now + 0.14);
             }
 
-            document.addEventListener('keydown', () => {
+            function triggerSpark() {
                 const x = Math.random() * canvas.width;
                 const y = Math.random() * canvas.height;
                 for (let i = 0; i < 10; i++) {
                     particles.push(new Particle(x, y));
                 }
                 playPopSound();
-            });
+            }
+
+            document.addEventListener('keydown', triggerSpark);
+
+            // --- Touch Device Support ---
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            if (isTouchDevice) {
+                const touchBtn = document.getElementById('sparkTouchBtn');
+                touchBtn.style.display = 'block';
+                touchBtn.addEventListener('pointerdown', (e) => {
+                    e.preventDefault();
+                    triggerSpark();
+                });
+            }
 
             // Scroll Animation Observer
             const observer = new IntersectionObserver((entries) => {
@@ -758,7 +779,9 @@
                     specLabel4: 'サウンド',
                     downloadSectionTitle: 'ダウンロード',
                     downloadDesc: 'お使いのプラットフォームを選択してダウンロード',
-                    securityNote: '<i class="bi bi-lightbulb"></i> 初回起動時にセキュリティ警告が表示される場合があります<br>詳しくは<a href="https://github.com/eimax9668/TypeSpark#readme" style="color: #667eea;">README</a>をご確認ください'
+                    securityNote: '<i class="bi bi-lightbulb"></i> 初回起動時にセキュリティ警告が表示される場合があります<br>詳しくは<a href="https://github.com/eimax9668/TypeSpark#readme" style="color: #19b03f;">README</a>をご確認ください',
+                    soundRecommend: '<i class="bi bi-volume-up"></i> 音声をONにしてお楽しみください',
+                    comingSoon: '準備中'
                 },
                 en: {
                     tagline: 'A desktop accessory that colors your typing<br>with visuals and sound.',
@@ -783,7 +806,9 @@
                     specLabel4: 'Sound',
                     downloadSectionTitle: 'Download',
                     downloadDesc: 'Select your platform to download',
-                    securityNote: '<i class="bi bi-lightbulb"></i> Security warning may appear on first launch<br>Please check <a href="https://github.com/eimax9668/TypeSpark#readme" style="color: #667eea;">README</a> for details'
+                    securityNote: '<i class="bi bi-lightbulb"></i> Security warning may appear on first launch<br>Please check <a href="https://github.com/eimax9668/TypeSpark#readme" style="color: #19b03f;">README</a> for details',
+                    soundRecommend: '<i class="bi bi-volume-up"></i> Please enjoy with sound ON',
+                    comingSoon: 'Coming Soon'
                 }
             };
 
