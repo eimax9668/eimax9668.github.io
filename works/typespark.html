@@ -444,12 +444,12 @@
         #sparkTouchBtn {
             display: none;
             position: fixed;
-            bottom: 2rem;
+            bottom: 1.5rem;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10000;
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             /* border-radius: 5%; */
             background: white;
             color: #1b6f49;
@@ -474,6 +474,7 @@
         </div>
         <div class="hero-content animate-on-scroll">
             <h1 class="logo">TypeSpark</h1>
+            <p id="version-tag" style="color: rgba(255, 255, 255, 0.6); margin-top: -1rem; margin-bottom: 1rem; font-weight: 500;">v1.0.0</p>
             <p class="tagline" data-i18n="tagline">
                 あなたのタイピングを視覚と音で彩る<br>
                 デスクトップアクセサリー
@@ -484,7 +485,7 @@
         </div>
 
         <div class="cta-buttons">
-            <a href="https://github.com/eimax9668/TypeSpark/releases" class="btn btn-primary" data-i18n="downloadBtn">
+            <a href="https://github.com/eimax9668/TypeSpark/releases" class="btn btn-primary" id="hero-download-btn" data-i18n="downloadBtn">
                 <i class="bi bi-download"></i> ダウンロード
             </a>
             <a href="https://github.com/eimax9668/TypeSpark" class="btn btn-secondary">
@@ -504,7 +505,7 @@
                     <div class="feature-icon"><i class="bi bi-palette-fill"></i></div>
                     <h3 class="feature-title" data-i18n="f1Title">美しいパーティクル</h3>
                     <p class="feature-desc" data-i18n="f1Desc">
-                        円、四角、星など、多彩な形状から選択可能。カラーテーマはランダム、Fire、Ice、Neonの4種類。
+                        円、四角、星など、多彩な形状から選択可能。カラーテーマはランダム、Fire、Ice、Nature、Neonの5種類。
                     </p>
                 </div>
 
@@ -585,17 +586,17 @@
             </p>
 
             <div class="platform-buttons animate-on-scroll">
-                <a href="https://github.com/eimax9668/TypeSpark/releases" class="platform-btn">
-                    <div class="platform-icon"><i class="bi bi-apple"></i></div>
+                <a href="#" class="platform-btn" onclick="downloadLatest('dmg'); return false;">
+                    <div class="platform-icon"><i class="bi bi-apple" style="color:black; opacity: 0.7;"></i></div>
                     <div class="platform-name">macOS</div>
                     <div style="font-size: 0.9rem; color: #718096;">DMG</div>
                 </a>
 
-                <div class="platform-btn" style="opacity: 0.6; cursor: not-allowed;">
-                    <div class="platform-icon"><i class="bi bi-windows"></i></div>
+                <a href="#" class="platform-btn" onclick="downloadLatest('exe', 'setup'); return false;">
+                    <div class="platform-icon"><i class="bi bi-windows" style="color:black; opacity: 0.7;"></i></div>
                     <div class="platform-name">Windows</div>
-                    <div style="font-size: 0.9rem; color: #718096;" data-i18n="comingSoon">準備中</div>
-                </div>
+                    <div style="font-size: 0.9rem; color: #718096;">EXE</div>
+                </a>
             </div>
 
             <p style="color: #718096; margin-top: 2rem; font-size: 0.95rem;" data-i18n="securityNote">
@@ -766,9 +767,11 @@
                 ja: {
                     tagline: 'あなたのタイピングを視覚と音で彩る<br>デスクトップアクセサリー',
                     downloadBtn: 'ダウンロード',
+                    downloadBtnWin: 'Windows版をダウンロード',
+                    downloadBtnMac: 'macOS版をダウンロード',
                     featuresTitle: '主な機能',
                     f1Title: '美しいパーティクル',
-                    f1Desc: '円、四角、星など、多彩な形状から選択可能。カラーテーマはランダム、Fire、Ice、Neonの4種類。',
+                    f1Desc: '円、四角、星など、多彩な形状から選択可能。カラーテーマはランダム、Fire、Ice、Nature、Neonの5種類。',
                     f2Title: 'リアルなサウンド',
                     f2Desc: 'Synth（電子音）、Mechanical（メカニカル音）、Popcorn（ポップ音）の3種類。エコー効果も追加可能。',
                     f3Title: '物理演算',
@@ -793,9 +796,11 @@
                 en: {
                     tagline: 'A desktop accessory that colors your typing<br>with visuals and sound.',
                     downloadBtn: 'Download',
+                    downloadBtnWin: 'Download for Windows',
+                    downloadBtnMac: 'Download for macOS',
                     featuresTitle: 'Key Features',
                     f1Title: 'Beautiful Particles',
-                    f1Desc: 'Choose from circles, squares, stars, and more. 4 color themes: Random, Fire, Ice, and Neon.',
+                    f1Desc: 'Choose from circles, squares, stars, and more. 5 color themes: Random, Fire, Ice, Nature, and Neon.',
                     f2Title: 'Realistic Sound',
                     f2Desc: '3 types: Synth, Mechanical, and Popcorn. Echo effects can also be added.',
                     f3Title: 'Physics Simulation',
@@ -834,6 +839,26 @@
                 currentLang = lang;
             }
 
+            const heroBtn = document.getElementById('hero-download-btn');
+            if (heroBtn) {
+                const ua = navigator.userAgent.toLowerCase();
+                if (!/mobile|android|iphone|ipad|ipod/.test(ua)) {
+                    if (ua.includes('windows')) {
+                        heroBtn.setAttribute('data-i18n', 'downloadBtnWin');
+                        heroBtn.onclick = (e) => {
+                            e.preventDefault();
+                            downloadLatest('exe', 'setup');
+                        };
+                    } else if (ua.includes('mac')) {
+                        heroBtn.setAttribute('data-i18n', 'downloadBtnMac');
+                        heroBtn.onclick = (e) => {
+                            e.preventDefault();
+                            downloadLatest('dmg');
+                        };
+                    }
+                }
+            }
+
             // Initialize
             updateLanguage(currentLang);
 
@@ -841,6 +866,36 @@
                 const newLang = currentLang === 'ja' ? 'en' : 'ja';
                 updateLanguage(newLang);
             });
+
+            fetch('https://api.github.com/repos/eimax9668/TypeSpark/releases/latest')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.tag_name) {
+                        document.getElementById('version-tag').textContent = data.tag_name;
+                    }
+                })
+                .catch(err => console.error('Error fetching version:', err));
+
+            // --- GitHub Latest Release Downloader ---
+            window.downloadLatest = function(extension, keyword) {
+                fetch('https://api.github.com/repos/eimax9668/TypeSpark/releases/latest')
+                    .then(response => response.json())
+                    .then(data => {
+                        const asset = data.assets.find(a => {
+                            const name = a.name.toLowerCase();
+                            return name.endsWith(extension) && (!keyword || name.includes(keyword));
+                        });
+                        if (asset) {
+                            window.location.href = asset.browser_download_url;
+                        } else {
+                            window.location.href = 'https://github.com/eimax9668/TypeSpark/releases/latest';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching latest release:', error);
+                        window.location.href = 'https://github.com/eimax9668/TypeSpark/releases';
+                    });
+            };
         })();
     </script>
 </body>
