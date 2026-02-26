@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkyScope - Bluesky Analytics</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;700&family=IBM+Plex+Sans+JP:wght@100;200;300;400;500;600;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="header">
+  <h1><i class="bi bi-clouds" style="-webkit-text-stroke: 0.5px;"></i> SkyScope</h1><p>Bluesky Post Analyzer</p>
+</div>
+<div class="container">
+
+  <!-- 認証 -->
+  <div class="card" id="authCard">
+    <h2><i class="bi bi-shield-lock"></i> 認証情報</h2>
+    <input id="handle" placeholder="ハンドル (例: yourname.bsky.social)" value="" />
+    <input id="password" placeholder="App Password" value="" type="password" />
+    <button onclick="startFetch()" id="fetchBtn"><i class="bi bi-fire"></i> 投稿を全件取得する</button>
+  </div>
+
+  <!-- 進捗 -->
+  <div class="card" id="progressCard" style="display:none">
+    <h2><i class="bi bi-broadcast"></i> 取得中...</h2>
+    <div class="progress"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
+    <div class="status" id="statusText">ログイン中...</div>
+    <div id="log"></div>
+  </div>
+
+  <!-- 概要 -->
+  <div class="card" id="summaryCard" style="display:none">
+    <h2><i class="bi bi-bar-chart-line"></i> 全体サマリー</h2>
+    <div class="stats-grid" id="statsGrid"></div>
+    <div style="margin-top:12px;">
+      <button class="btn-green" onclick="downloadCSV()"><i class="bi bi-download"></i> CSVダウンロード</button>
+      <button style="margin-left:8px;" onclick="showAllPosts()"><i class="bi bi-list-ul"></i> 全投稿一覧</button>
+    </div>
+  </div>
+
+  <!-- バズり分析 -->
+  <div class="card" id="insightCard" style="display:none">
+    <h2><i class="bi bi-lightbulb"></i> 発見された傾向</h2>
+    <div id="insightList"></div>
+  </div>
+
+  <!-- 時間帯分析 -->
+  <div class="card" id="hourCard" style="display:none">
+    <h2><i class="bi bi-clock"></i> 時間帯別 平均いいね数</h2>
+    <div id="hourChart"></div>
+  </div>
+
+  <!-- 曜日分析 -->
+  <div class="card" id="dowCard" style="display:none">
+    <h2><i class="bi bi-calendar3"></i> 曜日別 平均いいね数</h2>
+    <div id="dowChart"></div>
+  </div>
+
+  <!-- 文字数分析 -->
+  <div class="card" id="lenCard" style="display:none">
+    <h2><i class="bi bi-pencil-square"></i> 文字数帯別 平均いいね数</h2>
+    <div id="lenChart"></div>
+  </div>
+
+  <!-- TOP投稿 -->
+  <div class="card" id="topCard" style="display:none">
+    <h2><i class="bi bi-trophy"></i> TOP10 投稿</h2>
+    <div id="topTable"></div>
+  </div>
+
+  <!-- 全投稿 -->
+  <div class="card" id="allCard" style="display:none">
+    <h2><i class="bi bi-card-list"></i> 全投稿一覧</h2>
+    <div style="overflow-x:auto"><table id="allTable"></table></div>
+  </div>
+
+  <!-- 使い方・解説 -->
+  <div class="card">
+    <h2><i class="bi bi-question-circle"></i> 使い方と解説</h2>
+    <div class="help-section">
+      <h3>使いかた</h3>
+      <ul>
+        <li><code>ハンドル</code>には <code>example.bsky.social</code> のようなIDを入力します。</li>
+        <li><code>App Password</code>は、Blueskyの設定 &gt; 設定 &gt; 高度な設定 &gt; アプリパスワード から発行した専用パスワードを使用してください（メインパスワードは非推奨）。</li>
+        <li>「投稿を全件取得する」を押すと、リプライを除く自分の投稿をすべて解析します。</li>
+      </ul>
+      <h3>解析項目の解説</h3>
+      <ul>
+        <li><strong>時間帯・曜日別:</strong> どのタイミングで投稿すると反応（いいね）が得られやすいかを可視化します。</li>
+        <li><strong>文字数帯別:</strong> 短文が好まれるか、長文が読まれるかの傾向を分析します。</li>
+        <li><strong>発見された傾向:</strong> 取得したデータから「画像の効果」「タグの影響」などを自動で計算します。</li>
+      </ul>
+      <p><i class="bi bi-info-circle"></i> 取得したデータはブラウザ内でのみ処理され、外部サーバーに保存されることはありません。</p>
+
+      <details>
+        <summary><i class="bi bi-gear-wide-connected"></i> 分析の仕組み（技術解説）</summary>
+        <div class="details-content">
+          <p>本ツールはBlueskyの公開API（AT Protocol）を使用して以下のステップで分析を行っています：</p>
+          <ul style="margin-top:8px;">
+            <li><strong>データ取得:</strong> <code>getAuthorFeed</code> エンドポイントを叩き、リプライを除いた投稿（posts_no_replies）をカーソルループで全件取得します。</li>
+            <li><strong>正規化:</strong> 取得したISO 8601形式のタイムスタンプをブラウザのローカルタイムゾーンに変換し、曜日や時間帯を抽出します。</li>
+            <li><strong>判定ロジック:</strong> <code>record.embed</code> の型をチェックして画像の有無を判定し、正規表現を用いてリンクやハッシュタグの有無をスキャンします。</li>
+            <li><strong>統計計算:</strong> 取得した全投稿を配列として保持し、各属性（時間・文字数等）ごとにグループ化。それぞれの <code>likeCount</code> の算術平均を算出しています。</li>
+            <li><strong>インサイト生成:</strong> 各グループの平均値を比較し、有意な差（0.5以上など）がある場合は、傾向を自動で判定して文章化します。</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </div>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>
