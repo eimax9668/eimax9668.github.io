@@ -3,7 +3,7 @@
 *::before,
 *::after {
   box-sizing: border-box;
-  transition: 0.2s;
+  transition: 0.3s;
 }
 
 ::selection {
@@ -17,16 +17,30 @@
   color: #fff;
 }
 
+html {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: light-dark(#ffffff, #1f1f1f); /* オーバースクロール用フォールバック（残す） */
+  background-image: 
+  linear-gradient(180deg, light-dark(#ffffff, #1f1f1f) 0%, light-dark(#e2e8f0, #0f172a) 100%);
+  background-attachment: fixed; 
+}
+
+
 body, html {
-  background-color: light-dark(#fff, #1f1f1f);
   margin: 0;
   padding: 0;
-  font-family: "Inter", "IBM Plex Sans JP", "Bootstrap-icons", sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, "bootstrap-icons";
   color: light-dark(#333, #e5e5e5);
+  font-feature-settings: "palt";
 }
 
 [data-theme="dark"] {
   color-scheme: dark;
+}
+
+h1,h2,h3,h4,h5,h6{
+  letter-spacing: -0.03em;
 }
 
 a {
@@ -37,69 +51,56 @@ a {
 main {
   width: 85%;
   max-width: 900px;
-  margin: 90px auto 15px auto; 
+  margin: 11vh auto 15px auto; 
 }
 
 header {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 85%;
-  max-width: 900px;
+  max-width: 950px;
   margin: 0 auto;         
   padding: 13px 0;
-  background-color: light-dark(rgba(255, 255, 255, 0.5), rgba(255,255,255,0.05));
-  box-shadow: 0 2px 7px light-dark(rgb(255, 255, 255), rgba(0, 0, 0, 0));
+  background-color: light-dark(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  box-shadow: inset 0px 0px 12px 0px light-dark(#e7ecf4, #333c49);
   backdrop-filter: blur(6px);
-  border-radius: 0 0 4px 4px;
+  border-radius: 0 0 10px 10px;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 10;
   box-sizing: border-box;
-  gap:5%;
+  gap:3%;
 }
 
 /* ヘッダー内リンクのスタイル */
 header a:not(#site-title):not(#index-small) {
     position: relative;
     display: inline-block;
-    font-weight: bold;
     padding: 0.3em 0.7em;
     z-index: 1;
     color: light-dark(#333, #e5e5e5);
   }
+  header a:not(#site-title):not(#index-small):hover{
+    text-decoration: underline;
+  }
   
-/* ホバー時の背景角丸 */
-header a:not(#site-title):not(#index-small)::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: light-dark(rgba(200, 200, 200, 0.4), rgba(100, 100, 100, 0.4));
-  border-radius: 8px;
-  opacity: 0;
-  z-index: -1;
-  transition: opacity 0.3s ease;
-}
-  
-header a:not(#site-title):not(#index-small):hover::after {
-  opacity: 1;
-}
-
 /* ロゴのフォント設定 */
 #site-title {
   font-size: 30px;
-  font-weight: bold;
+  font-weight: 600;
+  margin-left:25px;
 }
 
 #index-small {
-  font-weight: bold;
   display: none;
 }
 
 /* タイトルなど */
 h1 {
+  font-weight: 400;
   margin-top: 3vh;
   font-size: 30px;
   margin-bottom: 3vh;
@@ -111,7 +112,7 @@ h1 span {
   z-index: 1;
 }
 
-h1 span::before {
+/*h1 span::before {
   content: "";
   position: absolute;
   left: 0;
@@ -121,15 +122,21 @@ h1 span::before {
   background-color: light-dark(rgba(238, 238, 238, 0.65), rgba(59, 59, 59, 0.65));
   border-radius: 4px;
   z-index: -1;
-}
+}*/
 
 h2 {
   margin-top: 2vh;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 h3{
-  font-weight: 600;
+  font-weight: 400;
+}
+
+h3::before {
+  content: "■";
+  margin-right: 5px;
+  color: light-dark((#333), #fff);
 }
 
 p {
@@ -161,7 +168,7 @@ p {
 .article{
   width: 70%;
   height: 100%;
-  padding: 17px 5px 17px 13px;
+  padding: 17px 0px;
   display: block;
   font-size:24px;
   margin-bottom: 2vh;
@@ -171,8 +178,15 @@ p {
 }
 .article-date{
   font-size:14px;
-  color:#666666;
+  color:light-dark(#666666, #999999);
 }
+
+  time:before{
+    content: "\F218";
+    margin-right: 10px;
+    display: inline-block;              
+    vertical-align: middle;
+  }
 
 footer{
   margin-top: 5vh;
@@ -205,12 +219,11 @@ small{
   }
 
   header a:not(#site-title):not(#index-small) {
-    padding: 0.2em 0.5em;
     font-size: 14px;
-  }
-
-  header a:not(#site-title):not(#index-small) {
     padding: 0em 0em 0em 0em;
+  }
+  header{
+    justify-content: center;
   }
 
   .article{width:100%;}
@@ -227,24 +240,37 @@ vertical-align: middle;
   gap: 15px;
   margin-top: 10px;
 }
-.like-button,like-count{
+/*.like-button{
     height: 32px;
     font-size: 16px;
     padding: 5px 10px;
     border-radius: 4px;
-    background-color: light-dark(#f3f3f3b3, #3a3a3a);
-  color: light-dark(#333, #e5e5e5);
+    background-color: light-dark(#ffffff33, #ffffff24);
+    color: light-dark(#333, #e5e5e5);
     border: none;
-}
-.like-count{
-  padding: 0 10px 0;
 }
 .like-button{
   cursor: pointer;
 }
 .like-button:hover{
-  background-color: light-dark(#ededed, #555555);
+  background-color: light-dark(#ffffff49, #ffffff35);
+}    
+*/
+.like-button{
+  background: none;
+  border: none;
+  border-radius: 0;
+  font: inherit;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
 }
+.like-count{
+  padding: 0 10px 0;
+}
+
 .like-container{
   display: flex;
   justify-content: center;

@@ -127,3 +127,73 @@ document.addEventListener('DOMContentLoaded', () => {
   // ページ読み込み時に現在のいいね数を取得・表示
   fetchCurrentLikes();
 });
+
+// scripts/script.js
+
+document.addEventListener('DOMContentLoaded', () => {
+  const rainbowEl = document.getElementById('rainbow-overscroll');
+  if (!rainbowEl) return;
+
+  let isAnimating = false;
+  let touchStartY = 0;
+
+  // ページ最下部に到達しているか判定する関数
+  function isAtBottom() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    
+    // 誤差2px以内であれば最下部と判定
+    return scrollTop + windowHeight >= documentHeight - 2;
+  }
+
+  // アニメーション発火と復帰処理
+  function triggerRainbow() {
+    if (isAnimating) return;
+    isAnimating = true;
+
+    // クラスを付与して虹を表示＆ボディを少し持ち上げる
+    rainbowEl.classList.add('active');
+    document.body.classList.add('rainbow-active');
+
+    // 0.7秒後にスムーズに戻す
+    setTimeout(() => {
+      rainbowEl.classList.remove('active');
+      document.body.classList.remove('rainbow-active');
+
+      // アニメーション完了後にフラグ解除
+      setTimeout(() => {
+        isAnimating = false;
+      }, 600);
+    }, 700);
+  }
+
+  // 1. マウスホイール（PC）の検知
+  window.addEventListener('wheel', (e) => {
+    // 下方向のスクロール（e.deltaY > 0）かつ最下部の場合
+    if (e.deltaY > 0 && isAtBottom()) {
+      triggerRainbow();
+    }
+  }, { passive: true });
+
+  // 2. タッチ操作（スマホ）の検知
+  window.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  window.addEventListener('touchmove', (e) => {
+    const currentY = e.touches[0].clientY;
+    const deltaY = touchStartY - currentY; // 下へスワイプすると deltaY はプラス
+
+    if (deltaY > 15 && isAtBottom()) {
+      triggerRainbow();
+    }
+  }, { passive: true });
+
+  // 3. キーボード操作（ArrowDown, PageDown, Space）の検知
+  window.addEventListener('keydown', (e) => {
+    if (['ArrowDown', 'PageDown', ' '].includes(e.key) && isAtBottom()) {
+      triggerRainbow();
+    }
+  });
+});
