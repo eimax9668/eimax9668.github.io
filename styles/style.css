@@ -5,7 +5,6 @@
   box-sizing: border-box;
   transition: 0.3s;
 }
-
 ::selection {
   background-color: #416dc0; 
   color: #fff;              
@@ -35,6 +34,15 @@ body, html {
   font-feature-settings: "palt";
 }
 
+@media (hover: hover) {
+  html[data-flashlight="on"] main {
+    mask-image: radial-gradient(
+      circle 150px at var(--x) var(--y), 
+      rgba(0, 0, 0, 1) 0%, 
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+}
 [data-theme="dark"] {
   color-scheme: dark;
 }
@@ -197,8 +205,14 @@ footer{
   align-items: center;
   justify-content: space-between;
 }
+.footer-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
 .bi-brightness-high,
-.bi-moon {
+.bi-moon,
+.bi-vignette {
   cursor: pointer;
   font-size:25px;
 }
@@ -224,6 +238,7 @@ small{
   }
   header{
     justify-content: center;
+    width:90%;
   }
 
   .article{width:100%;}

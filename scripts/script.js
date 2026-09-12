@@ -1,17 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const themeToggle = document.querySelector('.bi-brightness-high, .bi-moon');
   const html = document.documentElement;
+  const initializeThemeToggle = () => {
+    const themeToggle = document.querySelector('.bi-brightness-high, .bi-moon');
+    if (!themeToggle || themeToggle.dataset.themeInitialized === 'true') return;
 
-  if (themeToggle) {
+    themeToggle.dataset.themeInitialized = 'true';
+
     // ページ読み込み時に保存されたテーマを反映
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
       html.setAttribute('data-theme', savedTheme);
-      if (savedTheme === 'dark') {
-        themeToggle.classList.remove('bi-brightness-high');
-        themeToggle.classList.add('bi-moon');
-      }
     }
+    themeToggle.classList.toggle('bi-moon', html.getAttribute('data-theme') === 'dark');
+    themeToggle.classList.toggle('bi-brightness-high', html.getAttribute('data-theme') !== 'dark');
 
     // クリックでテーマ切替
     themeToggle.addEventListener('click', () => {
@@ -28,7 +29,28 @@ document.addEventListener('DOMContentLoaded', () => {
         themeToggle.classList.add('bi-moon');
       }
     });
-  }
+  };
+
+  initializeThemeToggle();
+  document.addEventListener('footerLoaded', initializeThemeToggle);
+
+  const initializeFlashlightToggle = () => {
+    const flashlightToggle = document.querySelector('.bi-vignette');
+    if (!flashlightToggle || flashlightToggle.dataset.flashlightInitialized === 'true') return;
+
+    flashlightToggle.dataset.flashlightInitialized = 'true';
+    document.documentElement.dataset.flashlight = 'off';
+    flashlightToggle.addEventListener('click', () => {
+      const isEnabled = document.documentElement.dataset.flashlight === 'on';
+      document.documentElement.dataset.flashlight = isEnabled ? 'off' : 'on';
+      const nextLabel = isEnabled ? '懐中電灯モードをオンにする' : '懐中電灯モードをオフにする';
+      flashlightToggle.setAttribute('aria-label', nextLabel);
+      flashlightToggle.setAttribute('title', nextLabel);
+    });
+  };
+
+  initializeFlashlightToggle();
+  document.addEventListener('footerLoaded', initializeFlashlightToggle);
 
   // copyLink ボタンの処理
   const copyLinkBtn = document.getElementById('copylink');
@@ -126,74 +148,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ページ読み込み時に現在のいいね数を取得・表示
   fetchCurrentLikes();
-});
-
-// scripts/script.js
-
-document.addEventListener('DOMContentLoaded', () => {
-  const rainbowEl = document.getElementById('rainbow-overscroll');
-  if (!rainbowEl) return;
-
-  let isAnimating = false;
-  let touchStartY = 0;
-
-  // ページ最下部に到達しているか判定する関数
-  function isAtBottom() {
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const windowHeight = window.innerHeight;
-    const documentHeight = document.documentElement.scrollHeight;
-    
-    // 誤差2px以内であれば最下部と判定
-    return scrollTop + windowHeight >= documentHeight - 2;
-  }
-
-  // アニメーション発火と復帰処理
-  function triggerRainbow() {
-    if (isAnimating) return;
-    isAnimating = true;
-
-    // クラスを付与して虹を表示＆ボディを少し持ち上げる
-    rainbowEl.classList.add('active');
-    document.body.classList.add('rainbow-active');
-
-    // 0.7秒後にスムーズに戻す
-    setTimeout(() => {
-      rainbowEl.classList.remove('active');
-      document.body.classList.remove('rainbow-active');
-
-      // アニメーション完了後にフラグ解除
-      setTimeout(() => {
-        isAnimating = false;
-      }, 600);
-    }, 700);
-  }
-
-  // 1. マウスホイール（PC）の検知
-  window.addEventListener('wheel', (e) => {
-    // 下方向のスクロール（e.deltaY > 0）かつ最下部の場合
-    if (e.deltaY > 0 && isAtBottom()) {
-      triggerRainbow();
-    }
-  }, { passive: true });
-
-  // 2. タッチ操作（スマホ）の検知
-  window.addEventListener('touchstart', (e) => {
-    touchStartY = e.touches[0].clientY;
-  }, { passive: true });
-
-  window.addEventListener('touchmove', (e) => {
-    const currentY = e.touches[0].clientY;
-    const deltaY = touchStartY - currentY; // 下へスワイプすると deltaY はプラス
-
-    if (deltaY > 15 && isAtBottom()) {
-      triggerRainbow();
-    }
-  }, { passive: true });
-
-  // 3. キーボード操作（ArrowDown, PageDown, Space）の検知
-  window.addEventListener('keydown', (e) => {
-    if (['ArrowDown', 'PageDown', ' '].includes(e.key) && isAtBottom()) {
-      triggerRainbow();
-    }
-  });
 });
