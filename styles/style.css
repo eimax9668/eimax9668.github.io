@@ -37,9 +37,9 @@ body, html {
 @media (hover: hover) {
   html[data-flashlight="on"] main {
     mask-image: radial-gradient(
-      circle 150px at var(--x) var(--y), 
+      circle 200px at var(--x) var(--y), 
       rgba(0, 0, 0, 1) 0%, 
-      rgba(0, 0, 0, 0) 100%
+      rgba(0, 0, 0, 0.01) 100%
     );
   }
 }
@@ -192,6 +192,7 @@ p {
   time:before{
     content: "\F218";
     margin-right: 10px;
+    margin-left: 1px;
     display: inline-block;              
     vertical-align: middle;
   }
