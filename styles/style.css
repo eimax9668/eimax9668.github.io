@@ -56,6 +56,13 @@ a {
   color: inherit; 
 }
 
+a[href^="https://"]::after {
+  content: " ↗"; 
+  font-size: 0.8em;
+  margin-left: 2px;
+}
+
+
 main {
   width: 85%;
   max-width: 900px;
