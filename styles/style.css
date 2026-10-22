@@ -315,6 +315,8 @@ code {
 }
 
 pre {
+  max-width: 100%;
+  overflow-x: auto;
   padding: 1em;
   margin: 0 0 1.5em;
   border: solid 1px light-dark(#e2e8f0, #333c49);
