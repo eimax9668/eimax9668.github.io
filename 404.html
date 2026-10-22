@@ -10,24 +10,107 @@
     <meta property="og:title" content="404 - ei-max.net" />
     <meta property="og:description" content="私は誰か、何をしているのか、そして思ったことを書く" />
     <link rel="stylesheet" href="/styles/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=IBM+Plex+Sans+JP:wght@100..900&display=swap"
-        rel="stylesheet">
+    <style>
+        @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css");
+        .error-page {
+            text-align: center;
+        }
+
+        .error-page h1 {
+            margin-bottom: 0;
+        }
+
+        .particle-stage {
+            position: relative;
+            width: 100%;
+            max-width: 760px;
+            height: clamp(190px, 32vw, 300px);
+            margin: 1vh auto 0;
+        }
+
+        #particle-canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .particle-fallback {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            margin: 0;
+            font-size: clamp(5rem, 18vw, 10rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: 0.04em;
+            pointer-events: none;
+        }
+
+        .particle-stage.is-ready .particle-fallback {
+            opacity: 0;
+        }
+
+        .error-message {
+            margin: 0 auto;
+        }
+
+        .error-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .error-actions a,
+        .error-actions button {
+            border: 1px solid light-dark(#cbd5e1, #475569);
+            border-radius: 999px;
+            padding: 0.65rem 1.1rem;
+            background: light-dark(#ffffff66, #1f293766);
+            color: inherit;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        .error-actions a:hover,
+        .error-actions button:hover {
+            background: light-dark(#ffffff, #334155);
+            transform: translateY(-2px);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .particle-stage.is-ready .particle-fallback {
+                opacity: 1;
+            }
+
+            #particle-canvas {
+                visibility: hidden;
+            }
+        }
+    </style>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <script src="/script.js" defer></script>
 </head>
 
 <body>
     <div id="header"></div>
-    <main>
-        <h1>404</h1>
-        <p>ページが存在しないか削除された可能性があります</p>
+    <main class="error-page">
+        <div class="particle-stage">
+            <canvas id="particle-canvas" aria-hidden="true"></canvas>
+            <p class="particle-fallback" aria-hidden="true"></p>
+        </div>
+        <p class="error-message">お探しのページは削除されたか、移動した可能性があります。</p>
+        <div class="error-actions">
+            <a href="/">トップページへ戻る</a>
+            <button id="reassemble-button" type="button"><i class="bi bi-arrow-clockwise"></i></button>
+        </div>
         <div id="footer"></div>
     </main>
     <script src="/scripts/script.js" defer></script>
     <script src="/scripts/header.js" defer></script>
+    <script src="/scripts/404.js" defer></script>
 </body>
 
 </html>

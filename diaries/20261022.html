@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head prefix="og: https://ogp.me/ns#">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Educationの恩恵 - ei-max.net</title>
+    <meta name="description" content="私は誰か、何をしているのか、そして思ったことを書く">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://ei-max.net/diaries/20261022.html" />
+    <meta property="og:title" content="GitHub Educationの恩恵 - ei-max.net" />
+    <meta property="og:description" content="私は誰か、何をしているのか、そして思ったことを書く" />
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        // 保存されているテーマを取得
+        const theme = localStorage.getItem('theme') || 'light';
+        document.documentElement.dataset.theme = theme;
+    </script>
+</head>
+
+<body>
+    <div id="header"></div>
+    <main>
+        <article>
+            <h1 class="blog_h1">WideDropを作った</h1>
+            <h2 class="blog_h2"><time datetime="2026-10-22">2026年10月22日</time></h2>
+            <h3>WideDropとは?</h3>
+            <p>Google Chatでファイルをアップロードしやすくするブラウザ拡張機能です。</p>
+            <img src="https://raw.githubusercontent.com/eimax9668/WideDrop/refs/heads/main/introduction.gif" alt="WideDropの紹介映像" width="60%">
+            <h3>作った理由</h3>
+            <img src="./image/20261022.jpeg" alt="ほっそい入力欄" width="60%">
+            <p>ふつう、Google Chatにファイルをアップロードするときはファイルアップロードボタンを押すか、このほっっっそい入力欄にファイルをドラッグアンドドロップしなければなりません。<br>
+            非常にめんどくさいのです。それを解決するために作りました。</p>
+            <h3>どう動きますか?</h3>
+            <p>ファイルをドラッグアンドドロップしようとすると、画面全体にオーバーレイが表示されどこに投げてもファイルが入力欄に添付されます。</p>
+            <h3>しくみ ① ファイル検知、画面にオーバーレイ出す</h3>
+            <pre><code>function isChatSurface() {
+  return (
+    location.hostname === "chat.google.com" ||
+    location.hostname === "mail.google.com" ||
+    location.pathname.endsWith("/test-harness.html")
+  );
+}</code></pre>
+<p>まず、WideDropが動くページかを確認する。</p>
+<pre><code>hasDraggedFiles(event)</code></pre>
+<p>ドラッグされたものがファイルかを確認します。<br>ファイルのドラッグを検知すると、</p>
+<pre><code>dragDepth += 1;
+  setOverlayVisible(true);
+</code></pre>
+<p>となり、画面にオーバーレイが現れる。</p>
+<h3>しくみ ② 入力欄を見つける</h3>
+<p>DOMに<code>#compose</code>のようなみたいな固定IDがあるとは限らない。そこでWideDropは候補を大量に探して点数をつける。<br>
+候補になるのは、</p>
+<pre><code>textarea
+[contenteditable="true"]
+[role="textbox"]</code></pre>
+<p>そして<code>scoreComposerCandidate()</code>で、<span style="font-weight: bold;">入力欄だと思われるやつに加点</span>する。</p>
+<pre><code>現在フォーカスされている : +80
+role="textbox" : +35
+contenteditable : +35
+textarea : +28
+「メッセージ」「返信」などの文字 : +38
+</code></pre>
+<p>逆に、こういった文字列が含まれる場合は大幅減点措置を取らせていただいております : </p>
+<pre>
+<code>検索
+フィルター
+スペースを検索
+ユーザーを検索
+</code></pre>
+<h3>しくみ ③ 実際にドロップされたらファイルを読む</h3>
+    <p><code>Drop</code>イベントが発生すると、<code>const files = readFilesNow(event.dataTransfer);</code><br>
+    まず<code>transfer.files</code>から取得。それがダメなら<code>transfer.items</code>から<code>getAsFile()</code>。二段構えである。<br>
+</p>
+<h3>しくみ ④ 二重添付させません／本来の入力欄に直接落とした場合の挙動</h3>
+<p>同じファイルについて、ファイル名やサイズ、最終更新日時などから署名を作る。そして1.2秒以内に同じ署名がもう一回来たら重複扱いにする。
+</p>
+<pre><code>if (composer && event.target instanceof Node && composer.contains(event.target)) {
+  return;
+}
+</code></pre>
+<p>WideDropは「入力欄以外に落としたときだけ」介入するのです。</p>
+<h3>しくみ ⑤ Dropイベントを入力欄に転送</h3>
+<p>
+<pre><code>composer.focus({ preventScroll: true });
+dispatchDropSequence(
+  composer,
+  event,
+  event.dataTransfer
+);
+</code></pre>
+とする。<code>dispatchDropSequence()</code>は、<br><br>
+
+<pre><code>for (const type of ["dragenter", "dragover", "drop"]) 
+</code></pre>
+として、dragenter→dragover→dropをを入力欄に対して人工的に発生させる。
+</p>
+<h3>しくみ ⑥ イベント監視</h3>
+<pre><code>document.addEventListener("dragenter", handleDragEnter, true);
+document.addEventListener("dragover", handleDragOver, true);
+document.addEventListener("dragleave", handleDragLeave, true);
+document.addEventListener("drop", handleDrop, true);
+</code></pre><p>これによって、ページ全体でドラッグ＆ドロップを監視している。</p>
+<h3>つまりどういうことか</h3>
+<p>これは「画面全体を本物のDropゾーンにした」のではなく、「画面のどこで受けたDropでも、最終的に入力欄へのDropだったことにする」拡張機能です。</p>
+<h3>既知の問題</h3>
+<p>ページを完全に再読み込みせずにGoogle Chatのビュー間を移動すると、WideDropが誤ってアクティブまたは非アクティブのままになる場合があります。 <a href="https://github.com/eimax9668/WideDrop/issues/1" class="links">GitHubで見る</a></p>
+</article>
+        <div class="blog_menu">
+            <a href="javascript:copyLink()" class="links" id="copylink">リンクをコピー</a>
+            <div class="like-container" data-article-id="post-2026-10-22">
+                <button class="like-button links" aria-label="いいねボタン"><i class="bi bi-suit-heart"></i> いいね</button>
+                <span class="like-count"> </span>
+            </div>
+        </div>
+        <div id="footer"></div>
+    </main>
+    <script src="/scripts/script.js" defer></script>
+    <script src="/scripts/header.js" defer></script>
+</body>
+
+</html>
