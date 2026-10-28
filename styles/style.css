@@ -82,7 +82,10 @@ header {
   max-width: 950px;
   margin: 0 auto;         
   padding: 13px 0;
-  background-color: light-dark(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  background-color: light-dark(
+    rgba(255, 255, 255, 0.1),
+    rgba(31, 31, 31, 0.78)
+  );
   box-shadow: inset 0px 0px 12px 0px light-dark(#e7ecf4, #333c49);
   backdrop-filter: blur(6px);
   border-radius: 0 0 10px 10px;
